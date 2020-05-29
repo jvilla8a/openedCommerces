@@ -1,7 +1,14 @@
 import React from "react";
 
-export default () => (
-  <div>
-    <h1>Home</h1>
-  </div>
-);
+import BasicPage from "../compound/layouts/basicPage";
+import HomePage from "../pages/home";
+
+const Home = () => {
+  return (
+    <BasicPage>
+      <HomePage />
+    </BasicPage>
+  );
+};
+
+export default Home;
