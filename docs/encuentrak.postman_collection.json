@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "891c3eec-048d-4004-9b44-f81395d2dbf6",
+		"name": "encuentrak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://europe-west3-openedcommerces.cloudfunctions.net/createShop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"1234567890\",\n    \"name\": \"SARKU 2\",\n    \"phone\": \"5555555\",\n    \"address\": \"calle 2 # 2- 4\",\n    \"city\": \"Medellin\",\n    \"department\": \"Antioquia\",\n    \"salesMethod\": \"Domicilio\",\n    \"salesHours\": {\n        \"open\": \"8:00 a.m.\",\n        \"close\": \"6:00 p.m.\"\n    },\n    \"commerceTypes\": [\n        \"Comida\"\n    ],\n    \"specialty\": \"oriental\",\n    \"description\": \"comida rapida y comida casera\",\n    \"contact\": {\n        \"instagram\": \"instagram\",\n        \"facebook\": \"facebook\",\n        \"whatsapp\": \"\",\n        \"web\": \"\",\n        \"other\": \"\"\n    },\n    \"paymentType\": [\n        \"efectivo\"\n    ],\n    \"img\": \"https://www.infobae.com/new-resizer/OO9tKnPnkSLsZM2Txn6cJcKwvSo=/420x280/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/infobae/JUHWWZKKCFJWP6FIHRQZSVGT7Y.jpg\",\n    \"invitation\": \"xxxxxxxx\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://europe-west3-openedcommerces.cloudfunctions.net/createShop",
+					"protocol": "https",
+					"host": [
+						"europe-west3-openedcommerces",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"createShop"
+					]
+				},
+				"description": "create shop"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
