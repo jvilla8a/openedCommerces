@@ -1,7 +1,14 @@
 import React from "react";
 
-export default () => (
-  <div>
-    <h1>Commerces</h1>
-  </div>
-);
+import BasicPage from "../compound/layouts/basicPage";
+import CommercesPage from "../pages/commerces";
+
+const Commerces = () => {
+  return (
+    <BasicPage>
+      <CommercesPage />
+    </BasicPage>
+  );
+};
+
+export default Commerces;

@@ -1,7 +1,14 @@
 import React from "react";
 
-export default () => (
-  <div>
-    <h1>Registry</h1>
-  </div>
-);
+import BasicPage from "../compound/layouts/basicPage";
+import RegistryPage from "../pages/registry";
+
+const Registry = () => {
+  return (
+    <BasicPage>
+      <RegistryPage />
+    </BasicPage>
+  );
+};
+
+export default Registry;
