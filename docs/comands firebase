@@ -1,0 +1,13 @@
+comandos firebase
+
+firebase login --reauth //cambiar de cuenta google
+
+firebase init functions //crea proyecto
+
+firebase deploy --only firestore:rules //desplegar reglas
+firebase deploy --only storage
+firebase deploy --only database
+
+firebase deploy --only functions // desplegar functions
+
+firebase deploy //desplegar en hosting
