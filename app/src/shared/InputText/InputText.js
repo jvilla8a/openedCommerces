@@ -13,8 +13,14 @@ const InputText = (props) => {
 
   return (
     <InputContainer>
-      <Input value={value} name={name} id={id} type={type} />
-      <InputLabel>{placeholder}</InputLabel>
+      <Input
+        placeholder={placeholder}
+        value={value}
+        name={name}
+        id={id}
+        type={type}
+      />
+      {false && <InputLabel>{placeholder}</InputLabel>}
       <InputError>{error}</InputError>
     </InputContainer>
   );
