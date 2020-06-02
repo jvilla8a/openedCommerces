@@ -21,7 +21,7 @@ let Commerce = new Model({
   address: "",
   city: "",
   department: "",
-  salesMethod: "",
+  salesMethod: [""],
   salesHours: Hours,
   commerceTypes: [""],
   specialty: "",

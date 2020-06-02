@@ -40,7 +40,7 @@ exports.createShop = functions
         res.send(
           new functions.https.HttpsError('invalid-argument', 'missing department')
           );
-      } else if (!req.body.salesMethod || req.body.salesMethod === "") {
+      } else if (!req.body.salesMethod || req.body.salesMethod === [""]) {
         res.send(
           new functions.https.HttpsError('invalid-argument', 'missing salesMethod')
           );
@@ -48,7 +48,7 @@ exports.createShop = functions
         res.send(
           new functions.https.HttpsError('invalid-argument', 'missing salesHours')
           );
-      } else if (!req.body.commerceTypes || req.body.commerceTypes === "") {
+      } else if (!req.body.commerceTypes || req.body.commerceTypes === [""]) {
         res.send(
           new functions.https.HttpsError('invalid-argument', 'missing commerceTypes')
           );
@@ -64,7 +64,7 @@ exports.createShop = functions
         res.send(
           new functions.https.HttpsError('invalid-argument', 'missing contact')
           );
-      } else if (!req.body.paymentType || req.body.paymentType === "") {
+      } else if (!req.body.paymentType || req.body.paymentType === [""]) {
         res.send(
           new functions.https.HttpsError('invalid-argument', 'missing paymentType')
           );
