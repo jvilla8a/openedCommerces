@@ -3,7 +3,6 @@ import Select from "react-select";
 import firebase from "firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
 
 import {
   FIREBASE_CONFIG,
@@ -38,6 +37,7 @@ const RegistryPage = () => {
   const [facebook, setFacebook] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [web, setWeb] = useState("");
+  const [email, setEmail] = useState("");
   const [other, setOther] = useState("");
   const [paymentType, setPaymentType] = useState([]);
   const [invitation, setInvitation] = useState("");
@@ -136,17 +136,13 @@ const RegistryPage = () => {
         facebook,
         whatsapp,
         web,
+        email,
         other,
       },
       paymentType,
       img: picture,
       invitation,
     };
-    console.log(data);
-  };
-
-  const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
   };
 
   return (
@@ -189,7 +185,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label>Teléfono:</label>
+            <label htmlFor="phone">Teléfono:</label>
             <input
               type="text"
               name="phone"
@@ -203,7 +199,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label>Dirección:</label>
+            <label htmlFor="address">Dirección:</label>
             <input
               type="text"
               name="address"
@@ -217,9 +213,10 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <div>
-            <label>Departamentos:</label>
+            <label htmlFor="states">Departamentos:</label>
             <Select
               options={states}
+              name="states"
               onChange={(values) => {
                 setCities([]);
                 setDepartment(values.value);
@@ -227,9 +224,10 @@ const RegistryPage = () => {
             />
           </div>
           <div>
-            <label>Ciudades:</label>
+            <label htmlFor="cities">Ciudades:</label>
             <Select
               options={cities}
+              name="cities"
               onChange={(values) => {
                 setCity(values);
               }}
@@ -237,7 +235,7 @@ const RegistryPage = () => {
           </div>
         </InputGroup>
         <InputSingle>
-          <label>Tipo de Venta:</label>
+          <label htmlFor="SalesMethod">Tipo de Venta:</label>
           <Select
             isMulti
             name="SalesMethod"
@@ -251,7 +249,7 @@ const RegistryPage = () => {
         </InputSingle>
         <InputGroup>
           <InputControl>
-            <label>Hora de Apertura</label>
+            <label htmlFor="open">Hora de Apertura</label>
             <input
               type="text"
               name="open"
@@ -262,7 +260,7 @@ const RegistryPage = () => {
             />
           </InputControl>
           <InputControl>
-            <label>Hora de Cierre</label>
+            <label htmlFor="close">Hora de Cierre</label>
             <input
               type="text"
               name="close"
@@ -274,11 +272,11 @@ const RegistryPage = () => {
           </InputControl>
         </InputGroup>
         <InputSingle>
-          <label>Tipo de Comercio:</label>
+          <label htmlFor="commerces">Tipo de Comercio:</label>
           <Select
             defaultValue={commerceTypes}
             isMulti
-            name="colors"
+            name="commerces"
             options={commerceTypes}
             className="basic-multi-select"
             classNamePrefix="select"
@@ -289,7 +287,7 @@ const RegistryPage = () => {
         </InputSingle>
         <InputGroup>
           <InputControl>
-            <label>Especialidad:</label>
+            <label htmlFor="specialty">Especialidad:</label>
             <input
               type="text"
               name="specialty"
@@ -300,7 +298,7 @@ const RegistryPage = () => {
             />
           </InputControl>
           <InputControl>
-            <label>Descripción:</label>
+            <label htmlFor="description">Descripción:</label>
             <input
               type="text"
               name="description"
@@ -313,7 +311,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label>Instagram:</label>
+            <label htmlFor="instagram">Instagram:</label>
             <input
               type="text"
               name="instagram"
@@ -324,7 +322,7 @@ const RegistryPage = () => {
             />
           </InputControl>
           <InputControl>
-            <label>Facebook:</label>
+            <label htmlFor="facebook">Facebook:</label>
             <input
               type="text"
               name="facebook"
@@ -337,7 +335,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label>Whatsapp:</label>
+            <label htmlFor="whatsapp">Whatsapp:</label>
             <input
               type="text"
               name="whatsapp"
@@ -348,7 +346,7 @@ const RegistryPage = () => {
             />
           </InputControl>
           <InputControl>
-            <label>Página Web:</label>
+            <label htmlFor="web">Página Web:</label>
             <input
               type="text"
               name="web"
@@ -361,7 +359,18 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label>Otro:</label>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </InputControl>
+          <InputControl>
+            <label htmlFor="other">Otro:</label>
             <input
               type="text"
               name="other"
@@ -371,13 +380,13 @@ const RegistryPage = () => {
               }}
             />
           </InputControl>
-          <div />
         </InputGroup>
         <InputSingle>
-          <label>Tipos de Pago:</label>
+          <label htmlFor="paymentMethods">Tipos de Pago:</label>
           <Select
             isMulti
             options={PAYMENT_METHODS}
+            name="paymentMethods"
             className="basic-multi-select"
             classNamePrefix="select"
             onChange={(values) => {
@@ -387,7 +396,7 @@ const RegistryPage = () => {
         </InputSingle>
         <InputGroup>
           <InputControl>
-            <label>Codigo de Invitación:</label>
+            <label htmlFor="invitation">Codigo de Invitación:</label>
             <input
               type="text"
               name="invitation"
