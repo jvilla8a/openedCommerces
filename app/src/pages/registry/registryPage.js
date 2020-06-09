@@ -3,6 +3,7 @@ import Select from "react-select";
 import firebase from "firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import {
   FIREBASE_CONFIG,
@@ -12,10 +13,13 @@ import {
 } from "./registry.constants";
 import { createCitiesURL } from "./registry.utils";
 
+firebase.initializeApp(FIREBASE_CONFIG).storage();
+
 const RegistryPage = () => {
   // Form Information
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [disabledInv, setDisabledInv] = useState(false);
 
   // Data from Form
   const [id, setId] = useState("");
@@ -36,7 +40,6 @@ const RegistryPage = () => {
   const [web, setWeb] = useState("");
   const [other, setOther] = useState("");
   const [paymentType, setPaymentType] = useState([]);
-  const [img, setImg] = useState("");
   const [invitation, setInvitation] = useState("");
   const [uploadValue, setUploadValue] = useState(0);
   const [picture, setPicture] = useState("");
@@ -74,8 +77,11 @@ const RegistryPage = () => {
   };
 
   useEffect(() => {
-    firebase.initializeApp(FIREBASE_CONFIG).storage();
     getStates();
+    if (document.location.search.split("id=")[1]) {
+      setDisabledInv(true);
+      setInvitation(document.location.search.split("id=")[1] || "");
+    }
   }, []);
 
   useEffect(() => {
@@ -137,6 +143,10 @@ const RegistryPage = () => {
       invitation,
     };
     console.log(data);
+  };
+
+  const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
   };
 
   return (
@@ -385,6 +395,7 @@ const RegistryPage = () => {
               onChange={(e) => {
                 setInvitation(e.target.value);
               }}
+              disabled={disabledInv}
             />
           </InputControl>
           <div />
@@ -492,10 +503,11 @@ const InputControl = styled.div`
 
   input {
     height: 38px;
-    padding-left: 5px;
+    padding-left: 10px;
     border: 1px solid #cccccc;
     border-radius: 4px;
     box-sizing: border-box;
+    font-size: 16px;
   }
   input:focus {
     border: 2px solid #2684ff;
