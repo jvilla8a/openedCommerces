@@ -10,6 +10,8 @@ import {
   ContextMenu,
   MenuC,
   OptionC,
+  Redes,
+  Social,
 } from "./navBar.styles";
 import InputText from "../../shared/InputText";
 
@@ -40,7 +42,23 @@ const NavBar = () => {
           </Option>
         </Menu>
       </Nav>
-      <InputText placeholder="Buscar Comercios" />
+      <Redes>
+        <Social>
+          {/* <a href="https://www.facebook.com" target="_blank"> */}
+            <i class="fab fa-facebook-square"></i>
+          {/* </a> */}
+        </Social>
+        <Social>
+          {/* <a href="https://www.facebook.com" target="_blank"> */}
+            <i href="" class="fab fa-instagram" ></i>
+          {/* </a> */}
+        </Social>
+        <Social>
+          {/* <a href="https://www.facebook.com" target="_blank"> */}
+            <i href="" class="fab fa-twitter-square"></i>
+          {/* </a> */}
+        </Social>
+      </Redes>
       {open && (
         <ContextMenu
           onMouseEnter={onMouseEnterHandler}
