@@ -18,6 +18,7 @@ let Commerce = new Model({
   id: "",
   name: "",
   phone: "",
+  email: "",
   address: "",
   city: "",
   department: "",

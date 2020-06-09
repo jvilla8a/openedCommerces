@@ -28,6 +28,10 @@ exports.createShop = functions
         res.send(
           new functions.https.HttpsError('invalid-argument', 'missing phone')
           );
+      } else if (!req.body.email || req.body.email === "") {
+        res.send(
+          new functions.https.HttpsError('invalid-argument', 'missing email')
+          );
       } else if (!req.body.address || req.body.address === "") {
         res.send(
           new functions.https.HttpsError('invalid-argument', 'missing address')
@@ -81,6 +85,7 @@ exports.createShop = functions
           id: req.body.id,
           name: req.body.name,
           phone: req.body.phone,
+          email: req.body.email,
           address: req.body.address,
           city: req.body.city,
           department: req.body.department,
