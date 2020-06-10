@@ -26,3 +26,7 @@ export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyDKYG7Wt_IyYoMkfu1pnlc5XOBRH5E-foc",
   storageBucket: "gs://openedcommerces.appspot.com",
 };
+
+export const RECAPTCHA_KEY = "6LeKtaIZAAAAAOZgyDDIBGQ0src_gNfWV2wDxKoN";
+
+export const RECAPTCHA_KEY_DEV = "6LcruKIZAAAAAO4p5bOnaLPekH63AFe7AlWqpdrB";

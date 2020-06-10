@@ -3,12 +3,15 @@ import Select from "react-select";
 import firebase from "firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import {
   FIREBASE_CONFIG,
   DATA_BASE_URL,
   PAYMENT_METHODS,
   SALES_METHODS,
+  RECAPTCHA_KEY,
+  RECAPTCHA_KEY_DEV,
 } from "./registry.constants";
 import { createCitiesURL } from "./registry.utils";
 
@@ -19,6 +22,7 @@ const RegistryPage = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [disabledInv, setDisabledInv] = useState(false);
+  const [captcha, setCaptcha] = useState(false);
 
   // Data from Form
   const [id, setId] = useState("");
@@ -143,6 +147,10 @@ const RegistryPage = () => {
       img: picture,
       invitation,
     };
+  };
+
+  const handleCaptchaUpdate = (value) => {
+    setCaptcha(!!value);
   };
 
   return (
@@ -407,7 +415,12 @@ const RegistryPage = () => {
               disabled={disabledInv}
             />
           </InputControl>
-          <div />
+          <div>
+            <ReCAPTCHA
+              sitekey={RECAPTCHA_KEY_DEV}
+              onChange={handleCaptchaUpdate}
+            />
+          </div>
         </InputGroup>
         <div>
           <Button>Registrarse</Button>
