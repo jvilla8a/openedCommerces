@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Bar = styled.div`
-  background-color: #ffffff;
+  background-color: #050859;
   width: 100%;
   height: 50px;
   position: sticky;
@@ -16,7 +16,7 @@ export const Bar = styled.div`
   }
   & a {
     text-decoration: none;
-    color: #000000;
+    color: #ffffff;
     &:hover {
       text-decoration: underline;
     }
@@ -36,7 +36,7 @@ export const Menu = styled.ul`
 export const Option = styled.li`
   margin-right: 20px;
   cursor: pointer;
-
+  color: #ffffff;
   &:hover {
     text-decoration: underline;
   }
@@ -44,7 +44,7 @@ export const Option = styled.li`
 
 export const ContextMenu = styled.div`
   max-width: 60%;
-  background-color: #ffffff;
+  background-color: #050859;
   display: flex;
   flex-wrap: wrap;
   position: absolute;
@@ -66,4 +66,19 @@ export const MenuC = styled.ul`
 `;
 export const OptionC = styled.li`
   width: 33%;
+`;
+export const Redes = styled.ul`
+
+`;
+export const Social = styled.li`
+  color: #ffffff;
+  font-size: 24px;
+  margin: 0 10px;
+  a {
+    text-decoration: none;
+    color: #ffffff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 `;
