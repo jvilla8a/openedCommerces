@@ -23,6 +23,7 @@ const RegistryPage = () => {
   const [cities, setCities] = useState([]);
   const [disabledInv, setDisabledInv] = useState(false);
   const [captcha, setCaptcha] = useState(false);
+  const [disableRegistry, setDisabledRegistry] = useState(true);
 
   // Data from Form
   const [id, setId] = useState("");
@@ -153,11 +154,45 @@ const RegistryPage = () => {
     setCaptcha(!!value);
   };
 
+  const validateForm = () => {
+    setDisabledRegistry(true);
+
+    if (!captcha) return false;
+    if (!name) return false;
+    if (!phone) return false;
+    if (!address) return false;
+    if (!department) return false;
+    if (!city) return false;
+    if (!salesMethods) return false;
+    if (!openHour) return false;
+    if (!closeHour) return false;
+    if (!specialty) return false;
+    if (!paymentType) return false;
+
+    setDisabledRegistry(false);
+  };
+
+  useEffect(() => {
+    validateForm();
+  }, [
+    captcha,
+    name,
+    phone,
+    address,
+    department,
+    city,
+    salesMethods,
+    openHour,
+    closeHour,
+    specialty,
+    paymentType,
+  ]);
+
   return (
     <Registry>
       <Container>
         <Title>Registro</Title>
-        <ImageControl>
+        <InputGroup className="image">
           <div>
             <input
               type="file"
@@ -165,7 +200,7 @@ const RegistryPage = () => {
               id="image"
               onChange={handleUpload}
             />
-            <label htmlFor="image">Cargar Imagen</label>
+            <label htmlFor="image">Cargar Logo*</label>
             {uploadValue !== 0 ? (
               <progress value={uploadValue} max="100" />
             ) : (
@@ -175,10 +210,10 @@ const RegistryPage = () => {
           <div>
             <Image src={picture} alt="" />
           </div>
-        </ImageControl>
+        </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="name">Nombre:</label>
+            <label htmlFor="name">Nombre*</label>
             <input
               type="text"
               name="name"
@@ -193,7 +228,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="phone">Teléfono:</label>
+            <label htmlFor="phone">Teléfono*</label>
             <input
               type="text"
               name="phone"
@@ -207,7 +242,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="address">Dirección:</label>
+            <label htmlFor="address">Dirección*</label>
             <input
               type="text"
               name="address"
@@ -221,7 +256,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <div>
-            <label htmlFor="states">Departamentos:</label>
+            <label htmlFor="states">Departamento*</label>
             <Select
               options={states}
               name="states"
@@ -232,7 +267,7 @@ const RegistryPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="cities">Ciudades:</label>
+            <label htmlFor="cities">Ciudad*</label>
             <Select
               options={cities}
               name="cities"
@@ -243,7 +278,7 @@ const RegistryPage = () => {
           </div>
         </InputGroup>
         <InputSingle>
-          <label htmlFor="SalesMethod">Tipo de Venta:</label>
+          <label htmlFor="SalesMethod">Tipo de Venta*</label>
           <Select
             isMulti
             name="SalesMethod"
@@ -257,7 +292,7 @@ const RegistryPage = () => {
         </InputSingle>
         <InputGroup>
           <InputControl>
-            <label htmlFor="open">Hora de Apertura</label>
+            <label htmlFor="open">Hora de Apertura*</label>
             <input
               type="text"
               name="open"
@@ -268,7 +303,7 @@ const RegistryPage = () => {
             />
           </InputControl>
           <InputControl>
-            <label htmlFor="close">Hora de Cierre</label>
+            <label htmlFor="close">Hora de Cierre*</label>
             <input
               type="text"
               name="close"
@@ -279,23 +314,24 @@ const RegistryPage = () => {
             />
           </InputControl>
         </InputGroup>
-        <InputSingle>
-          <label htmlFor="commerces">Tipo de Comercio:</label>
-          <Select
-            defaultValue={commerceTypes}
-            isMulti
-            name="commerces"
-            options={commerceTypes}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={(values) => {
-              setCommerceTypes(values);
-            }}
-          />
-        </InputSingle>
+        <Separator />
         <InputGroup>
+          <div>
+            <label htmlFor="commerces">Tipo de Comercio*</label>
+            <Select
+              defaultValue={commerceTypes}
+              isMulti
+              name="commerces"
+              options={commerceTypes}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={(values) => {
+                setCommerceTypes(values);
+              }}
+            />
+          </div>
           <InputControl>
-            <label htmlFor="specialty">Especialidad:</label>
+            <label htmlFor="specialty">Especialidad*</label>
             <input
               type="text"
               name="specialty"
@@ -305,10 +341,11 @@ const RegistryPage = () => {
               }}
             />
           </InputControl>
-          <InputControl>
-            <label htmlFor="description">Descripción:</label>
-            <input
-              type="text"
+        </InputGroup>
+        <InputSingle>
+          <InputControl className="single">
+            <label htmlFor="description">Descripción*</label>
+            <textarea
               name="description"
               value={description}
               onChange={(e) => {
@@ -316,10 +353,24 @@ const RegistryPage = () => {
               }}
             />
           </InputControl>
-        </InputGroup>
+        </InputSingle>
+        <InputSingle>
+          <label htmlFor="paymentMethods">Tipos de Pago*</label>
+          <Select
+            isMulti
+            options={PAYMENT_METHODS}
+            name="paymentMethods"
+            className="basic-multi-select"
+            classNamePrefix="select"
+            onChange={(values) => {
+              setPaymentType(values);
+            }}
+          />
+        </InputSingle>
+        <Separator />
         <InputGroup>
           <InputControl>
-            <label htmlFor="instagram">Instagram:</label>
+            <label htmlFor="instagram">Instagram</label>
             <input
               type="text"
               name="instagram"
@@ -330,7 +381,7 @@ const RegistryPage = () => {
             />
           </InputControl>
           <InputControl>
-            <label htmlFor="facebook">Facebook:</label>
+            <label htmlFor="facebook">Facebook</label>
             <input
               type="text"
               name="facebook"
@@ -343,7 +394,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="whatsapp">Whatsapp:</label>
+            <label htmlFor="whatsapp">Whatsapp</label>
             <input
               type="text"
               name="whatsapp"
@@ -354,7 +405,7 @@ const RegistryPage = () => {
             />
           </InputControl>
           <InputControl>
-            <label htmlFor="web">Página Web:</label>
+            <label htmlFor="web">Página Web</label>
             <input
               type="text"
               name="web"
@@ -367,7 +418,7 @@ const RegistryPage = () => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               name="email"
@@ -378,7 +429,7 @@ const RegistryPage = () => {
             />
           </InputControl>
           <InputControl>
-            <label htmlFor="other">Otro:</label>
+            <label htmlFor="other">Otro</label>
             <input
               type="text"
               name="other"
@@ -389,22 +440,10 @@ const RegistryPage = () => {
             />
           </InputControl>
         </InputGroup>
-        <InputSingle>
-          <label htmlFor="paymentMethods">Tipos de Pago:</label>
-          <Select
-            isMulti
-            options={PAYMENT_METHODS}
-            name="paymentMethods"
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={(values) => {
-              setPaymentType(values);
-            }}
-          />
-        </InputSingle>
+        <Separator />
         <InputGroup>
           <InputControl>
-            <label htmlFor="invitation">Codigo de Invitación:</label>
+            <label htmlFor="invitation">Codigo de Invitación</label>
             <input
               type="text"
               name="invitation"
@@ -415,16 +454,20 @@ const RegistryPage = () => {
               disabled={disabledInv}
             />
           </InputControl>
+          <div />
+        </InputGroup>
+        <Separator />
+        <SubmitRow>
           <div>
             <ReCAPTCHA
               sitekey={RECAPTCHA_KEY_DEV}
               onChange={handleCaptchaUpdate}
             />
           </div>
-        </InputGroup>
-        <div>
-          <Button>Registrarse</Button>
-        </div>
+          <div className="left">
+            <Button disabled={disableRegistry}>Registrarse</Button>
+          </div>
+        </SubmitRow>
       </Container>
     </Registry>
   );
@@ -453,67 +496,23 @@ const Title = styled.div`
   margin-bottom: 20px;
 `;
 
-const ImageControl = styled.div`
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  height: 60px;
-
-  & div:first-of-type {
-    width: 50%;
-  }
-
-  & div:last-of-type {
-    position: absolute;
-    top: -7px;
-    right: 0px;
-  }
-
-  input {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-  }
-
-  input + label {
-    width: 100%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    background-color: black;
-    display: inline-block;
-    cursor: pointer;
-    text-align: center;
-    padding: 8px 20px;
-    box-sizing: border-box;
-    border-radius: 4px;
-  }
-
-  input:focus + label,
-  input + label:hover {
-    background-color: #2684ff;
-  }
-
-  progress {
-    width: 100%;
-  }
-`;
-
 const Image = styled.img`
-  max-width: 400px;
+  max-width: 100%;
   object-fit: contain;
   border: 1px solid #cccccc;
   padding: 3px;
   border-radius: 3px;
+  box-sizing: border-box;
 `;
 
 const InputControl = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
+
+  &.single {
+    width: 100%;
+  }
 
   & > div:first-of-type {
     margin-right: 5px;
@@ -523,7 +522,8 @@ const InputControl = styled.div`
     margin-left: 5px;
   }
 
-  input {
+  input,
+  textarea {
     height: 38px;
     padding-left: 10px;
     border: 1px solid #cccccc;
@@ -531,9 +531,16 @@ const InputControl = styled.div`
     box-sizing: border-box;
     font-size: 16px;
   }
-  input:focus {
+  input:focus,
+  textarea:focus {
     border: 2px solid #2684ff;
     outline: 0px;
+  }
+
+  textarea {
+    resize: none;
+    height: 100px;
+    padding-top: 10px;
   }
 `;
 
@@ -551,6 +558,43 @@ const InputGroup = styled.div`
 
   & > div {
     width: 50%;
+    box-sizing: border-box;
+  }
+
+  &.image {
+    height: 60px;
+
+    input {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+
+    input + label {
+      width: 100%;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      background-color: black;
+      display: inline-block;
+      cursor: pointer;
+      text-align: center;
+      padding: 8px 20px;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+
+    input:focus + label,
+    input + label:hover {
+      background-color: #2684ff;
+    }
+
+    progress {
+      width: 100%;
+    }
   }
 `;
 
@@ -573,6 +617,22 @@ const Button = styled.button`
   &:hover {
     background-color: #2684ff;
   }
+
+  &:disabled {
+    background-color: #cccccc;
+    color: #696969;
+    cursor: not-allowed;
+  }
+`;
+
+const Separator = styled.hr`
+  margin: 25px 0;
+  border: 1px solid #efefef;
+`;
+
+const SubmitRow = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default RegistryPage;
