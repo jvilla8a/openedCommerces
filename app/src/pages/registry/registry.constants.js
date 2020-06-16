@@ -1,5 +1,8 @@
 export const DATA_BASE_URL = "https://www.datos.gov.co/resource/xdk5-pm3f.json";
 
+export const SAVE_DATA_URL =
+  "https://europe-west3-openedcommerces.cloudfunctions.net/createShop";
+
 export const PAYMENT_METHODS = [
   {
     value: "Tarjeta",

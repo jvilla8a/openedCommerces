@@ -12,6 +12,7 @@ import {
   SALES_METHODS,
   RECAPTCHA_KEY,
   RECAPTCHA_KEY_DEV,
+  SAVE_DATA_URL,
 } from "./registry.constants";
 import { createCitiesURL } from "./registry.utils";
 
@@ -113,14 +114,12 @@ const RegistryPage = () => {
         storageRef.getDownloadURL().then((downloadUrl) => {
           const imagen = downloadUrl;
           setPicture(imagen);
-          setId(uuidv4());
         });
       }
     );
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const data = {
       id,
       name,
@@ -148,6 +147,17 @@ const RegistryPage = () => {
       img: picture,
       invitation,
     };
+
+    fetch(SAVE_DATA_URL, {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleCaptchaUpdate = (value) => {
@@ -158,6 +168,7 @@ const RegistryPage = () => {
     setDisabledRegistry(true);
 
     if (!captcha) return false;
+    if (!picture) return false;
     if (!name) return false;
     if (!phone) return false;
     if (!address) return false;
@@ -176,6 +187,7 @@ const RegistryPage = () => {
     validateForm();
   }, [
     captcha,
+    picture,
     name,
     phone,
     address,
@@ -221,6 +233,7 @@ const RegistryPage = () => {
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
+                if (!id) setId(uuidv4());
               }}
             />
           </InputControl>
@@ -272,7 +285,7 @@ const RegistryPage = () => {
               options={cities}
               name="cities"
               onChange={(values) => {
-                setCity(values);
+                setCity(values.value);
               }}
             />
           </div>
@@ -286,7 +299,11 @@ const RegistryPage = () => {
             className="basic-multi-select"
             classNamePrefix="select"
             onChange={(values) => {
-              setSalesMethods(values);
+              setSalesMethods(
+                values && values.length
+                  ? values.map((value) => value.value)
+                  : []
+              );
             }}
           />
         </InputSingle>
@@ -363,7 +380,11 @@ const RegistryPage = () => {
             className="basic-multi-select"
             classNamePrefix="select"
             onChange={(values) => {
-              setPaymentType(values);
+              setPaymentType(
+                values && values.length
+                  ? values.map((value) => value.value)
+                  : null
+              );
             }}
           />
         </InputSingle>
@@ -465,7 +486,9 @@ const RegistryPage = () => {
             />
           </div>
           <div className="left">
-            <Button disabled={disableRegistry}>Registrarse</Button>
+            <Button disabled={disableRegistry} onClick={handleSubmit}>
+              Registrarse
+            </Button>
           </div>
         </SubmitRow>
       </Container>
