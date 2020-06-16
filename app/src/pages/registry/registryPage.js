@@ -16,7 +16,12 @@ import {
 } from "./registry.constants";
 import { createCitiesURL } from "./registry.utils";
 
-firebase.initializeApp(FIREBASE_CONFIG).storage();
+var defaultProject = firebase.initializeApp(FIREBASE_CONFIG);
+
+var defaultStorage = defaultProject.storage();
+var defaultFirestore = defaultProject.firestore();
+
+// firebase.initializeApp().storage();
 
 const RegistryPage = () => {
   // Form Information
@@ -125,6 +130,7 @@ const RegistryPage = () => {
       name,
       phone,
       address,
+      email,
       city,
       department,
       salesMethods,
@@ -140,7 +146,6 @@ const RegistryPage = () => {
         facebook,
         whatsapp,
         web,
-        email,
         other,
       },
       paymentType,
@@ -148,16 +153,13 @@ const RegistryPage = () => {
       invitation,
     };
 
-    fetch(SAVE_DATA_URL, {
-      method: "POST",
-      body: JSON.stringify(data),
+    defaultFirestore.collection('shops').add(data)
+    .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
     })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
   };
 
   const handleCaptchaUpdate = (value) => {

@@ -28,6 +28,9 @@ export const SALES_METHODS = [
 export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyDKYG7Wt_IyYoMkfu1pnlc5XOBRH5E-foc",
   storageBucket: "gs://openedcommerces.appspot.com",
+  authDomain: "openedcommerces.firebaseapp.com",
+  databaseURL: "https://openedcommerces.firebaseio.com",
+  projectId: "openedcommerces",
 };
 
 export const RECAPTCHA_KEY = "6LeKtaIZAAAAAOZgyDDIBGQ0src_gNfWV2wDxKoN";
