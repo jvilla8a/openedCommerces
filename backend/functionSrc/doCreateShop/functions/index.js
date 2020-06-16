@@ -2,6 +2,13 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const Commerce = require('./commerce');
 const Timestamp = require('@google-cloud/firestore');
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+
+// Automatically allow cross-origin requests
+app.use(cors({ origin: true }));
 
 admin.initializeApp();
 const db = admin.firestore();
