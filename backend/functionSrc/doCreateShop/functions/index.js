@@ -21,6 +21,7 @@ exports.createShop = functions
   })
   .https
   .onRequest(async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
     try {
 
       if (!req.body.id || req.body.id === "") {
