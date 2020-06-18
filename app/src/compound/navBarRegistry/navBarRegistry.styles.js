@@ -24,21 +24,13 @@ export const Bar = styled.div`
 `;
 
 export const Logo = styled.div`
+  margin: 0 auto;
   width: 200px;
 `;
 
-export const Redes = styled.ul`
+export const Img = styled.img`
+  margin: 61px auto 0;
+  vertical-align: bottom;
+  width: 115%;
+`
 
-`;
-export const Social = styled.li`
-  color: #ffffff;
-  font-size: 24px;
-  margin: 0 10px;
-  a {
-    text-decoration: none;
-    color: #ffffff;
-    &:hover {
-      text-decoration: none;
-    }
-  }
-`;

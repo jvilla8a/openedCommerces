@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import {
   Bar,
   Logo,
-  Redes,
-  Social,
+  Img
 } from "./navBarRegistry.styles";
 
 const NavBarRegistry = () => {
@@ -22,25 +21,8 @@ const NavBarRegistry = () => {
   return (
     <Bar>
       <Logo>
-        <Link to="/registro">Logo</Link>
+        <Img src="assets/images/logo1.svg" alt=""/>
       </Logo>
-      <Redes>
-        <Social>
-          {/* <a href="https://www.facebook.com" target="_blank"> */}
-            <i class="fab fa-facebook-square"></i>
-          {/* </a> */}
-        </Social>
-        <Social>
-          {/* <a href="https://www.facebook.com" target="_blank"> */}
-            <i href="" class="fab fa-instagram" ></i>
-          {/* </a> */}
-        </Social>
-        <Social>
-          {/* <a href="https://www.facebook.com" target="_blank"> */}
-            <i href="" class="fab fa-twitter-square"></i>
-          {/* </a> */}
-        </Social>
-      </Redes>
     </Bar>
   );
 };
