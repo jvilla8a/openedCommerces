@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const Footer = () => <Bar>footer</Bar>;
+const Footer = () => <Bar>encuentrakco@gmail.com</Bar>;
 
 const Bar = styled.div`
   width: 100%;
-  background-color: #ffffff;
+  background-color: #050859;
   height: 100px;
-  border-top: 10px solid #d50000;
+  border-top: 10px solid #06fbec;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #06fbec;
 `;
 
 export default Footer;

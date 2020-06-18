@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import NavBar from "../navBar";
+import NavBarRegistry from "../navBarRegistry";
 import Footer from "../footer";
 
 const BasicPage = (props) => {
@@ -10,7 +11,7 @@ const BasicPage = (props) => {
 
   return (
     <Container>
-      <NavBar />
+      <NavBarRegistry />
       {children}
       <Footer />
     </Container>
