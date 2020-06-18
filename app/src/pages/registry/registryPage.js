@@ -10,12 +10,13 @@ import {
   DATA_BASE_URL,
   PAYMENT_METHODS,
   SALES_METHODS,
-  RECAPTCHA_KEY,
   RECAPTCHA_KEY_DEV,
 } from "./registry.constants";
 import { createCitiesURL } from "./registry.utils";
 
-firebase.initializeApp(FIREBASE_CONFIG).storage();
+const defaultProject = firebase.initializeApp(FIREBASE_CONFIG);
+defaultProject.storage();
+const defaultFirestore = defaultProject.firestore();
 
 const RegistryPage = () => {
   // Form Information
@@ -64,10 +65,10 @@ const RegistryPage = () => {
       });
   };
 
-  const getCities = () => {
-    if (department) {
+  const getCities = (state) => {
+    if (state) {
       // eslint-disable-next-line no-undef
-      fetch(createCitiesURL(department))
+      fetch(createCitiesURL(state))
         .then((res) => res.json())
         .then((data) => {
           const selectData = Array.from(new Set(data.map((x) => x.municipio)));
@@ -90,7 +91,7 @@ const RegistryPage = () => {
   }, []);
 
   useEffect(() => {
-    getCities();
+    if (department) getCities(department);
   }, [department]);
 
   const handleUpload = (e) => {
@@ -113,19 +114,18 @@ const RegistryPage = () => {
         storageRef.getDownloadURL().then((downloadUrl) => {
           const imagen = downloadUrl;
           setPicture(imagen);
-          setId(uuidv4());
         });
       }
     );
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const data = {
       id,
       name,
       phone,
       address,
+      email,
       city,
       department,
       salesMethods,
@@ -141,13 +141,22 @@ const RegistryPage = () => {
         facebook,
         whatsapp,
         web,
-        email,
         other,
       },
       paymentType,
       img: picture,
       invitation,
     };
+
+    defaultFirestore
+      .collection("shops")
+      .add(data)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
   };
 
   const handleCaptchaUpdate = (value) => {
@@ -158,6 +167,7 @@ const RegistryPage = () => {
     setDisabledRegistry(true);
 
     if (!captcha) return false;
+    if (!picture) return false;
     if (!name) return false;
     if (!phone) return false;
     if (!address) return false;
@@ -176,6 +186,7 @@ const RegistryPage = () => {
     validateForm();
   }, [
     captcha,
+    picture,
     name,
     phone,
     address,
@@ -221,6 +232,7 @@ const RegistryPage = () => {
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
+                if (!id) setId(uuidv4());
               }}
             />
           </InputControl>
@@ -272,7 +284,7 @@ const RegistryPage = () => {
               options={cities}
               name="cities"
               onChange={(values) => {
-                setCity(values);
+                setCity(values.value);
               }}
             />
           </div>
@@ -286,7 +298,11 @@ const RegistryPage = () => {
             className="basic-multi-select"
             classNamePrefix="select"
             onChange={(values) => {
-              setSalesMethods(values);
+              setSalesMethods(
+                values && values.length
+                  ? values.map((value) => value.value)
+                  : []
+              );
             }}
           />
         </InputSingle>
@@ -363,7 +379,11 @@ const RegistryPage = () => {
             className="basic-multi-select"
             classNamePrefix="select"
             onChange={(values) => {
-              setPaymentType(values);
+              setPaymentType(
+                values && values.length
+                  ? values.map((value) => value.value)
+                  : null
+              );
             }}
           />
         </InputSingle>
@@ -465,7 +485,9 @@ const RegistryPage = () => {
             />
           </div>
           <div className="left">
-            <Button disabled={disableRegistry}>Registrarse</Button>
+            <Button disabled={disableRegistry} onClick={handleSubmit}>
+              Registrarse
+            </Button>
           </div>
         </SubmitRow>
       </Container>
