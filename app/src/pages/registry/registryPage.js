@@ -10,18 +10,13 @@ import {
   DATA_BASE_URL,
   PAYMENT_METHODS,
   SALES_METHODS,
-  RECAPTCHA_KEY,
   RECAPTCHA_KEY_DEV,
-  SAVE_DATA_URL,
 } from "./registry.constants";
 import { createCitiesURL } from "./registry.utils";
 
-var defaultProject = firebase.initializeApp(FIREBASE_CONFIG);
-
-var defaultStorage = defaultProject.storage();
-var defaultFirestore = defaultProject.firestore();
-
-// firebase.initializeApp().storage();
+const defaultProject = firebase.initializeApp(FIREBASE_CONFIG);
+defaultProject.storage();
+const defaultFirestore = defaultProject.firestore();
 
 const RegistryPage = () => {
   // Form Information
@@ -70,10 +65,10 @@ const RegistryPage = () => {
       });
   };
 
-  const getCities = () => {
-    if (department) {
+  const getCities = (state) => {
+    if (state) {
       // eslint-disable-next-line no-undef
-      fetch(createCitiesURL(department))
+      fetch(createCitiesURL(state))
         .then((res) => res.json())
         .then((data) => {
           const selectData = Array.from(new Set(data.map((x) => x.municipio)));
@@ -96,7 +91,7 @@ const RegistryPage = () => {
   }, []);
 
   useEffect(() => {
-    getCities();
+    if (department) getCities(department);
   }, [department]);
 
   const handleUpload = (e) => {
@@ -153,13 +148,15 @@ const RegistryPage = () => {
       invitation,
     };
 
-    defaultFirestore.collection('shops').add(data)
-    .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
+    defaultFirestore
+      .collection("shops")
+      .add(data)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
         console.error("Error adding document: ", error);
-    });
+      });
   };
 
   const handleCaptchaUpdate = (value) => {
