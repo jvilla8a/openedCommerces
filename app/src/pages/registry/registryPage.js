@@ -4,6 +4,8 @@ import firebase from "firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import ReCAPTCHA from "react-google-recaptcha";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import {
   FIREBASE_CONFIG,
@@ -12,13 +14,13 @@ import {
   SALES_METHODS,
   RECAPTCHA_KEY_DEV,
 } from "./registry.constants";
-import { createCitiesURL } from "./registry.utils";
+import { createCitiesURL, getSuccessfulRegistration } from "./registry.utils";
 
 const defaultProject = firebase.initializeApp(FIREBASE_CONFIG);
 defaultProject.storage();
 const defaultFirestore = defaultProject.firestore();
 
-const RegistryPage = () => {
+const RegistryPage = (props) => {
   // Form Information
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -84,6 +86,7 @@ const RegistryPage = () => {
 
   useEffect(() => {
     getStates();
+
     if (document.location.search.split("id=")[1]) {
       setDisabledInv(true);
       setInvitation(document.location.search.split("id=")[1] || "");
@@ -120,6 +123,8 @@ const RegistryPage = () => {
   };
 
   const handleSubmit = () => {
+    const { history } = props;
+
     const data = {
       id,
       name,
@@ -151,8 +156,8 @@ const RegistryPage = () => {
     defaultFirestore
       .collection("shops")
       .add(data)
-      .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
+      .then(() => {
+        history.push(getSuccessfulRegistration(id));
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
@@ -485,7 +490,10 @@ const RegistryPage = () => {
             />
           </div>
           <div className="left">
-            <Button disabled={disableRegistry} onClick={handleSubmit}>
+            <Button
+              disabled={disableRegistry}
+              onClick={() => handleSubmit(props)}
+            >
               Registrarse
             </Button>
           </div>
@@ -657,4 +665,8 @@ const SubmitRow = styled.div`
   justify-content: space-between;
 `;
 
-export default RegistryPage;
+RegistryPage.propTypes = {
+  history: PropTypes.shape({}),
+};
+
+export default withRouter(RegistryPage);
