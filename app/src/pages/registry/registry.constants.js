@@ -36,3 +36,5 @@ export const FIREBASE_CONFIG = {
 export const RECAPTCHA_KEY = "6LeKtaIZAAAAAOZgyDDIBGQ0src_gNfWV2wDxKoN";
 
 export const RECAPTCHA_KEY_DEV = "6LcruKIZAAAAAO4p5bOnaLPekH63AFe7AlWqpdrB";
+
+export const SUCCESSFUL_REGISTRATION_URL = "/registro/exitoso?inv=";

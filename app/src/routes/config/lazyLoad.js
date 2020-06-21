@@ -38,6 +38,18 @@ const routes = [
     route: "/registro",
   },
   {
+    name: "Registry Success",
+    moduleName: {
+      loader: () => import("../registrySuccess.js"),
+      loading: () => null,
+      modules: ["registrySuccess"],
+    },
+    lazy: true,
+    path: true,
+    authenticate: false,
+    route: "/registro/exitoso",
+  },
+  {
     name: "NotFound",
     moduleName: NotFound,
     path: false,
