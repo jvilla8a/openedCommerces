@@ -27,6 +27,7 @@ const RegistryPage = (props) => {
   const [disabledInv, setDisabledInv] = useState(false);
   const [captcha, setCaptcha] = useState(false);
   const [disableRegistry, setDisabledRegistry] = useState(true);
+  const [isValidated, setIsValidated] = useState([]);
 
   // Data from Form
   const [id, setId] = useState("");
@@ -172,6 +173,7 @@ const RegistryPage = (props) => {
     setDisabledRegistry(true);
 
     if (!captcha) return false;
+    if (isValidated.length) return false;
     if (!picture) return false;
     if (!name) return false;
     if (!phone) return false;
@@ -182,6 +184,7 @@ const RegistryPage = (props) => {
     if (!openHour) return false;
     if (!closeHour) return false;
     if (!specialty) return false;
+    if (!email) return false;
     if (!paymentType) return false;
 
     setDisabledRegistry(false);
@@ -201,8 +204,32 @@ const RegistryPage = (props) => {
     openHour,
     closeHour,
     specialty,
+    email,
     paymentType,
+    isValidated,
   ]);
+
+  const validation = (value, validations) => {
+    const numbers = /^[0-9]*$/g;
+    const min6 = /^\D*(?:\d\D*){0,6}$/g;
+    const max10 = /^\D*(?:\d\D*){7,10}$/g;
+    const exact4 = /^\D*(?:\d\D*){4,4}$/g;
+    const mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (validations.includes("required") && !value) return "Campo obligatorio";
+    if (validations.includes("phone") && !numbers.test(value))
+      return "Campo numérico";
+    if (validations.includes("phone") && min6.test(value))
+      return "Longitud minima: 7";
+    if (validations.includes("phone") && !max10.test(value))
+      return "Longitud maxima: 10";
+    if (validations.includes("hour") && !numbers.test(value))
+      return "Campo numérico";
+    if (validations.includes("hour") && !exact4.test(value))
+      return "Longitud admitida: 4";
+    if (validations.includes("email") && !mail.test(value.toLowerCase()))
+      return "Formato invalido";
+  };
 
   return (
     <Registry>
@@ -229,15 +256,41 @@ const RegistryPage = (props) => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="name">Nombre*</label>
+            <label htmlFor="name">
+              Nombre*
+              <ErrorLabel>
+                {isValidated.length &&
+                isValidated.some((item) => item.input === "name")
+                  ? isValidated.find((item) => item.input === "name").message
+                  : ""}
+              </ErrorLabel>
+            </label>
             <input
               type="text"
               name="name"
               id="name"
               value={name}
+              className={
+                isValidated.length &&
+                isValidated.some((item) => item.input === "name")
+                  ? "error"
+                  : ""
+              }
               onChange={(e) => {
-                setName(e.target.value);
-                if (!id) setId(uuidv4());
+                const { value } = e.target;
+                const test = validation(value, ["required"]);
+                const tempIsValidated = isValidated.filter(
+                  (item) => item.input !== "name"
+                );
+                setName(value);
+
+                if (!test) {
+                  if (!id) setId(uuidv4());
+                  setIsValidated(tempIsValidated);
+                } else {
+                  tempIsValidated.push({ input: "name", message: test });
+                  setIsValidated(tempIsValidated);
+                }
               }}
             />
           </InputControl>
@@ -245,13 +298,39 @@ const RegistryPage = (props) => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="phone">Teléfono*</label>
+            <label htmlFor="phone">
+              Teléfono*
+              <ErrorLabel>
+                {isValidated.length &&
+                isValidated.some((item) => item.input === "phone")
+                  ? isValidated.find((item) => item.input === "phone").message
+                  : ""}
+              </ErrorLabel>
+            </label>
             <input
               type="text"
               name="phone"
               value={phone}
+              className={
+                isValidated.length &&
+                isValidated.some((item) => item.input === "phone")
+                  ? "error"
+                  : ""
+              }
               onChange={(e) => {
-                setPhone(e.target.value);
+                const { value } = e.target;
+                const test = validation(value, ["required", "phone"]);
+                const tempIsValidated = isValidated.filter(
+                  (item) => item.input !== "phone"
+                );
+                setPhone(value);
+
+                if (!test) {
+                  setIsValidated(tempIsValidated);
+                } else {
+                  tempIsValidated.push({ input: "phone", message: test });
+                  setIsValidated(tempIsValidated);
+                }
               }}
             />
           </InputControl>
@@ -259,13 +338,39 @@ const RegistryPage = (props) => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="address">Dirección*</label>
+            <label htmlFor="address">
+              Dirección*
+              <ErrorLabel>
+                {isValidated.length &&
+                isValidated.some((item) => item.input === "address")
+                  ? isValidated.find((item) => item.input === "address").message
+                  : ""}
+              </ErrorLabel>
+            </label>
             <input
               type="text"
               name="address"
               value={address}
+              className={
+                isValidated.length &&
+                isValidated.some((item) => item.input === "address")
+                  ? "error"
+                  : ""
+              }
               onChange={(e) => {
-                setAddress(e.target.value);
+                const { value } = e.target;
+                const test = validation(value, ["required"]);
+                const tempIsValidated = isValidated.filter(
+                  (item) => item.input !== "address"
+                );
+                setAddress(value);
+
+                if (!test) {
+                  setIsValidated(tempIsValidated);
+                } else {
+                  tempIsValidated.push({ input: "address", message: test });
+                  setIsValidated(tempIsValidated);
+                }
               }}
             />
           </InputControl>
@@ -313,24 +418,78 @@ const RegistryPage = (props) => {
         </InputSingle>
         <InputGroup>
           <InputControl>
-            <label htmlFor="open">Hora de Apertura*</label>
+            <label htmlFor="open">
+              Hora de Apertura*
+              <ErrorLabel>
+                {isValidated.length &&
+                isValidated.some((item) => item.input === "openHour")
+                  ? isValidated.find((item) => item.input === "openHour")
+                      .message
+                  : ""}
+              </ErrorLabel>
+            </label>
             <input
               type="text"
               name="open"
               value={openHour}
+              className={
+                isValidated.length &&
+                isValidated.some((item) => item.input === "openHour")
+                  ? "error"
+                  : ""
+              }
               onChange={(e) => {
-                setOpenHour(e.target.value);
+                const { value } = e.target;
+                const test = validation(value, ["required", "hour"]);
+                const tempIsValidated = isValidated.filter(
+                  (item) => item.input !== "openHour"
+                );
+                setOpenHour(value);
+
+                if (!test) {
+                  setIsValidated(tempIsValidated);
+                } else {
+                  tempIsValidated.push({ input: "openHour", message: test });
+                  setIsValidated(tempIsValidated);
+                }
               }}
             />
           </InputControl>
           <InputControl>
-            <label htmlFor="close">Hora de Cierre*</label>
+            <label htmlFor="close">
+              Hora de Cierre*
+              <ErrorLabel>
+                {isValidated.length &&
+                isValidated.some((item) => item.input === "closeHour")
+                  ? isValidated.find((item) => item.input === "closeHour")
+                      .message
+                  : ""}
+              </ErrorLabel>
+            </label>
             <input
               type="text"
               name="close"
               value={closeHour}
+              className={
+                isValidated.length &&
+                isValidated.some((item) => item.input === "closeHour")
+                  ? "error"
+                  : ""
+              }
               onChange={(e) => {
-                setCloseHour(e.target.value);
+                const { value } = e.target;
+                const test = validation(value, ["required", "hour"]);
+                const tempIsValidated = isValidated.filter(
+                  (item) => item.input !== "closeHour"
+                );
+                setCloseHour(value);
+
+                if (!test) {
+                  setIsValidated(tempIsValidated);
+                } else {
+                  tempIsValidated.push({ input: "closeHour", message: test });
+                  setIsValidated(tempIsValidated);
+                }
               }}
             />
           </InputControl>
@@ -352,25 +511,79 @@ const RegistryPage = (props) => {
             />
           </div>
           <InputControl>
-            <label htmlFor="specialty">Especialidad*</label>
+            <label htmlFor="specialty">
+              Especialidad*
+              <ErrorLabel>
+                {isValidated.length &&
+                isValidated.some((item) => item.input === "specialty")
+                  ? isValidated.find((item) => item.input === "specialty")
+                      .message
+                  : ""}
+              </ErrorLabel>
+            </label>
             <input
               type="text"
               name="specialty"
               value={specialty}
+              className={
+                isValidated.length &&
+                isValidated.some((item) => item.input === "specialty")
+                  ? "error"
+                  : ""
+              }
               onChange={(e) => {
-                setSpecialty(e.target.value);
+                const { value } = e.target;
+                const test = validation(value, ["required"]);
+                const tempIsValidated = isValidated.filter(
+                  (item) => item.input !== "specialty"
+                );
+                setSpecialty(value);
+
+                if (!test) {
+                  setIsValidated(tempIsValidated);
+                } else {
+                  tempIsValidated.push({ input: "specialty", message: test });
+                  setIsValidated(tempIsValidated);
+                }
               }}
             />
           </InputControl>
         </InputGroup>
         <InputSingle>
           <InputControl className="single">
-            <label htmlFor="description">Descripción*</label>
+            <label htmlFor="description">
+              Descripción*
+              <ErrorLabel>
+                {isValidated.length &&
+                isValidated.some((item) => item.input === "description")
+                  ? isValidated.find((item) => item.input === "description")
+                      .message
+                  : ""}
+              </ErrorLabel>
+            </label>
             <textarea
               name="description"
               value={description}
+              className={
+                isValidated.length &&
+                isValidated.some((item) => item.input === "description")
+                  ? "error"
+                  : ""
+              }
               onChange={(e) => {
-                setDescription(e.target.value);
+                const { value } = e.target;
+                const test = validation(value, ["required"]);
+                const tempIsValidated = isValidated.filter(
+                  (item) => item.input !== "description"
+                );
+                setDescription(value);
+
+                if (!test) {
+                  setIsValidated(tempIsValidated);
+                } else {
+                  tempIsValidated.push({ input: "description", message: test });
+                  setIsValidated(tempIsValidated);
+                }
               }}
             />
           </InputControl>
@@ -443,13 +656,39 @@ const RegistryPage = (props) => {
         </InputGroup>
         <InputGroup>
           <InputControl>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">
+              Email*
+              <ErrorLabel>
+                {isValidated.length &&
+                isValidated.some((item) => item.input === "email")
+                  ? isValidated.find((item) => item.input === "email").message
+                  : ""}
+              </ErrorLabel>
+            </label>
             <input
               type="email"
               name="email"
               value={email}
+              className={
+                isValidated.length &&
+                isValidated.some((item) => item.input === "email")
+                  ? "error"
+                  : ""
+              }
               onChange={(e) => {
-                setEmail(e.target.value);
+                const { value } = e.target;
+                const test = validation(value, ["required", "email"]);
+                const tempIsValidated = isValidated.filter(
+                  (item) => item.input !== "email"
+                );
+                setEmail(value);
+
+                if (!test) {
+                  setIsValidated(tempIsValidated);
+                } else {
+                  tempIsValidated.push({ input: "email", message: test });
+                  setIsValidated(tempIsValidated);
+                }
               }}
             />
           </InputControl>
@@ -552,6 +791,12 @@ const InputControl = styled.div`
     margin-left: 5px;
   }
 
+  label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   input,
   textarea {
     height: 38px;
@@ -565,6 +810,10 @@ const InputControl = styled.div`
   textarea:focus {
     border: 2px solid #2684ff;
     outline: 0px;
+  }
+  input.error,
+  textarea.error {
+    border: 2px solid #d50000;
   }
 
   textarea {
@@ -663,6 +912,11 @@ const Separator = styled.hr`
 const SubmitRow = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const ErrorLabel = styled.span`
+  font-size: 12px;
+  color: #d50000;
 `;
 
 RegistryPage.propTypes = {
