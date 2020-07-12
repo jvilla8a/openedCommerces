@@ -15,12 +15,15 @@ import {
   RECAPTCHA_KEY_DEV,
 } from "./registry.constants";
 import { createCitiesURL, getSuccessfulRegistration } from "./registry.utils";
+import Loader from "../../shared/Loader";
 
 const defaultProject = firebase.initializeApp(FIREBASE_CONFIG);
 defaultProject.storage();
 const defaultFirestore = defaultProject.firestore();
 
 const RegistryPage = (props) => {
+  const [isLoaderOpen, setLoaderOpen] = useState(false);
+
   // Form Information
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -126,6 +129,8 @@ const RegistryPage = (props) => {
   const handleSubmit = () => {
     const { history } = props;
 
+    setLoaderOpen(true);
+
     const data = {
       id,
       name,
@@ -159,9 +164,11 @@ const RegistryPage = (props) => {
       .add(data)
       .then(() => {
         history.push(getSuccessfulRegistration(id));
+        setLoaderOpen(false);
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
+        setLoaderOpen(false);
       });
   };
 
@@ -233,6 +240,7 @@ const RegistryPage = (props) => {
 
   return (
     <Registry>
+      <Loader open={isLoaderOpen} />
       <Container>
         <Title>Registro</Title>
         <InputGroup className="image">

@@ -32,5 +32,4 @@ export const Img = styled.img`
   margin: 61px auto 0;
   vertical-align: bottom;
   width: 115%;
-`
-
+`;
