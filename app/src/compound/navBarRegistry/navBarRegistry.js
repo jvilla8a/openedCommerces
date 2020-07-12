@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import {
-  Bar,
-  Logo,
-  Img
-} from "./navBarRegistry.styles";
+import { Bar, Logo, Img } from "./navBarRegistry.styles";
 
 const NavBarRegistry = () => {
   const [open, setOpen] = useState(false);
@@ -21,7 +17,7 @@ const NavBarRegistry = () => {
   return (
     <Bar>
       <Logo>
-        <Img src="assets/images/logo1.svg" alt=""/>
+        <Img src="assets/images/logo2.png" alt="" />
       </Logo>
     </Bar>
   );
