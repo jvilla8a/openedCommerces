@@ -1,26 +1,13 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
 import { Bar, Logo, Img } from "./navBarRegistry.styles";
 
-const NavBarRegistry = () => {
-  const [open, setOpen] = useState(false);
-
-  const commercesClickHandler = () => {
-    setOpen(!open);
-  };
-
-  const onMouseEnterHandler = () => {
-    setOpen(true);
-  };
-
-  return (
-    <Bar>
-      <Logo>
-        <Img src="assets/images/logo2.png" alt="" />
-      </Logo>
-    </Bar>
-  );
-};
+const NavBarRegistry = () => (
+  <Bar>
+    <Logo>
+      <Img src={`${window.location.origin}/assets/images/logo2.png`} alt="" />
+    </Logo>
+  </Bar>
+);
 
 export default NavBarRegistry;
