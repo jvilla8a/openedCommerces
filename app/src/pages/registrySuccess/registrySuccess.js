@@ -17,7 +17,7 @@ const registrySuccessPage = () => {
           Recuerda que invitando personas puedes obtener beneficios al momento
           del lanzamiento de la página.
         </p>
-        <p>Tu enlace de invitacion es: </p>
+        <p>Tu enlace de invitación es: </p>
         <h3>{`${REGISTRY_URL}?inv=${getInvitationCode()}`}</h3>
         <p>Pronto podrás disfrutar de todas nuestras funcionalidades.</p>
       </Container>
@@ -36,11 +36,12 @@ const RegistrySuccess = styled.div`
 
 const Container = styled.div`
   max-width: 800px;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   margin: 0px auto;
   padding: 50px;
   box-sizing: border-box;
   text-align: center;
+  border-radius: 5px;
 
   & p {
     font-size: 18px;

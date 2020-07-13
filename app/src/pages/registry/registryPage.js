@@ -13,6 +13,7 @@ import {
   PAYMENT_METHODS,
   SALES_METHODS,
   RECAPTCHA_KEY_DEV,
+  COMMERCES,
 } from "./registry.constants";
 import { createCitiesURL, getSuccessfulRegistration } from "./registry.utils";
 import Loader from "../../shared/Loader";
@@ -187,12 +188,13 @@ const RegistryPage = (props) => {
     if (!address) return false;
     if (!department) return false;
     if (!city) return false;
-    if (!salesMethods) return false;
+    if (!salesMethods || !salesMethods.length) return false;
     if (!openHour) return false;
     if (!closeHour) return false;
     if (!specialty) return false;
     if (!email) return false;
-    if (!paymentType) return false;
+    if (!paymentType || !paymentType.length) return false;
+    if (!commerceTypes || !commerceTypes.length) return false;
 
     setDisabledRegistry(false);
   };
@@ -214,6 +216,7 @@ const RegistryPage = (props) => {
     email,
     paymentType,
     isValidated,
+    commerceTypes,
   ]);
 
   const validation = (value, validations) => {
@@ -251,7 +254,9 @@ const RegistryPage = (props) => {
               id="image"
               onChange={handleUpload}
             />
-            <label htmlFor="image">Cargar Logo*</label>
+            <label className="primary" htmlFor="image">
+              Cargar Logo*
+            </label>
             {uploadValue !== 0 ? (
               <progress value={uploadValue} max="100" />
             ) : (
@@ -510,7 +515,7 @@ const RegistryPage = (props) => {
               defaultValue={commerceTypes}
               isMulti
               name="commerces"
-              options={commerceTypes}
+              options={COMMERCES}
               className="basic-multi-select"
               classNamePrefix="select"
               onChange={(values) => {
@@ -715,7 +720,7 @@ const RegistryPage = (props) => {
         <Separator />
         <InputGroup>
           <InputControl>
-            <label htmlFor="invitation">Codigo de Invitación</label>
+            <label htmlFor="invitation">Código de Invitación</label>
             <input
               type="text"
               name="invitation"
@@ -740,6 +745,7 @@ const RegistryPage = (props) => {
             <Button
               disabled={disableRegistry}
               onClick={() => handleSubmit(props)}
+              className="primary"
             >
               Registrarse
             </Button>
@@ -751,15 +757,16 @@ const RegistryPage = (props) => {
 };
 
 const Registry = styled.div`
-  margin: 20px;
+  margin: 80px 20px 20px 20px;
 `;
 
 const Container = styled.div`
   max-width: 800px;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   margin: 0px auto;
   padding: 20px 50px;
   box-sizing: border-box;
+  border-radius: 5px;
 
   input: {
     border: 1px solid #cccccc;
@@ -771,6 +778,7 @@ const Title = styled.div`
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
+  color: #ff861e;
 `;
 
 const Image = styled.img`
@@ -865,7 +873,7 @@ const InputGroup = styled.div`
       font-size: 14px;
       font-weight: bold;
       color: white;
-      background-color: black;
+      background-color: #0072ff;
       display: inline-block;
       cursor: pointer;
       text-align: center;
@@ -876,7 +884,7 @@ const InputGroup = styled.div`
 
     input:focus + label,
     input + label:hover {
-      background-color: #2684ff;
+      background-color: #2588ff;
     }
 
     progress {
@@ -890,7 +898,7 @@ const InputSingle = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: #000000;
+  background-color: #0072ff;
   color: #ffffff;
   border: none;
   font-size: 14px;
@@ -902,7 +910,7 @@ const Button = styled.button`
   border-radius: 4px;
 
   &:hover {
-    background-color: #2684ff;
+    background-color: #2588ff;
   }
 
   &:disabled {

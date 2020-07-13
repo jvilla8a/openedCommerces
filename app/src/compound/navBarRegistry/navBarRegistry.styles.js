@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Bar = styled.div`
-  background-color: #050859;
+  background-color: #282c34;
   width: 100%;
   height: 50px;
   position: sticky;
@@ -25,11 +25,11 @@ export const Bar = styled.div`
 
 export const Logo = styled.div`
   margin: 0 auto;
-  width: 200px;
+  width: 350px;
 `;
 
 export const Img = styled.img`
-  margin: 61px auto 0;
-  vertical-align: bottom;
-  width: 115%;
+  width: 100%;
+  position: relative;
+  top: 25px;
 `;
