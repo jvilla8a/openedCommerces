@@ -12,10 +12,14 @@ const registrySuccessPage = () => {
   return document.location.search.split("inv=")[1] ? (
     <RegistrySuccess>
       <Container>
-        <h2>Gracias por registrarte</h2>
+        <h2>¡Gracias por registrarte!</h2>
         <p>
-          Recuerda que invitando personas puedes obtener beneficios al momento
-          del lanzamiento de la página.
+          Recuerda, invitando personas a registrarse en nuestro portal,
+          obtendrás beneficios al momento del lanzamiento de la página.
+        </p>
+        <p>
+          Asegurate de que usen tu enlace de invitación cuando se inscriban,
+          para que puedas disfrutar de estas ventajas.
         </p>
         <p>Tu enlace de invitación es: </p>
         <h3>{`${REGISTRY_URL}?inv=${getInvitationCode()}`}</h3>
