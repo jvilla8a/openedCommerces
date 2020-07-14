@@ -12,6 +12,7 @@ import {
   DATA_BASE_URL,
   PAYMENT_METHODS,
   SALES_METHODS,
+  RECAPTCHA_KEY,
   RECAPTCHA_KEY_DEV,
   COMMERCES,
 } from "./registry.constants";
@@ -737,7 +738,11 @@ const RegistryPage = (props) => {
         <SubmitRow>
           <div>
             <ReCAPTCHA
-              sitekey={RECAPTCHA_KEY_DEV}
+              sitekey={
+                window.location.origin.includes("localhost")
+                  ? RECAPTCHA_KEY_DEV
+                  : RECAPTCHA_KEY
+              }
               onChange={handleCaptchaUpdate}
             />
           </div>
