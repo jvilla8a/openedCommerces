@@ -778,12 +778,13 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.div`
-  font-size: 30px;
+const Title = styled.h2`
+  font-size: 26px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: #ff861e;
+  color: #282c34;
+  margin: 15px 0px 30px;
 `;
 
 const Image = styled.img`
