@@ -105,27 +105,29 @@ const RegistryPage = (props) => {
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
-    const storageRef = firebase.storage().ref(`/fotos/${file.name}`);
-    const task = storageRef.put(file);
+    if (file) {
+      const storageRef = firebase.storage().ref(`/fotos/${file.name}`);
+      const task = storageRef.put(file);
 
-    task.on(
-      "state_changed",
-      (snapshot) => {
-        const percentage =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setUploadValue(percentage);
-      },
-      (error) => {
-        console.log(error.message);
-      },
-      () => {
-        setUploadValue(100);
-        storageRef.getDownloadURL().then((downloadUrl) => {
-          const imagen = downloadUrl;
-          setPicture(imagen);
-        });
-      }
-    );
+      task.on(
+        "state_changed",
+        (snapshot) => {
+          const percentage =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setUploadValue(percentage);
+        },
+        (error) => {
+          console.log(error.message);
+        },
+        () => {
+          setUploadValue(100);
+          storageRef.getDownloadURL().then((downloadUrl) => {
+            const imagen = downloadUrl;
+            setPicture(imagen);
+          });
+        }
+      );
+    }
   };
 
   const handleSubmit = () => {
@@ -264,9 +266,9 @@ const RegistryPage = (props) => {
               ""
             )}
           </div>
-          <div>
+          <ImageContainer>
             <Image src={picture} alt="" />
-          </div>
+          </ImageContainer>
         </InputGroup>
         <InputGroup>
           <InputControl>
@@ -776,6 +778,10 @@ const Container = styled.div`
   input: {
     border: 1px solid #cccccc;
   }
+
+  @media (max-width: 600px) {
+    padding: 20px 15px;
+  }
 `;
 
 const Title = styled.h2`
@@ -787,19 +793,30 @@ const Title = styled.h2`
   margin: 15px 0px 30px;
 `;
 
+const ImageContainer = styled.div`
+  height: 276px;
+  display: flex;
+
+  @media (max-width: 600px) {
+    max-height: 300px;
+    height: auto;
+  }
+`;
+
 const Image = styled.img`
   max-width: 100%;
-  object-fit: contain;
-  border: 1px solid #cccccc;
-  padding: 3px;
-  border-radius: 3px;
+  max-height: 100%;
+  margin: 0px auto;
+  display: block;
+  border: 0px;
+  padding: 0px;
   box-sizing: border-box;
 `;
 
 const InputControl = styled.div`
-  width: 50%;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 
   &.single {
     width: 100%;
@@ -897,6 +914,28 @@ const InputGroup = styled.div`
       width: 100%;
     }
   }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    display: block;
+
+    & > div {
+      width: 100%;
+    }
+
+    & > div:first-of-type {
+      margin-right: 0px;
+      margin-bottom: 15px;
+    }
+
+    & > div:last-of-type {
+      margin-left: 0px;
+    }
+
+    &.image {
+      height: fit-content;
+    }
+  }
 `;
 
 const InputSingle = styled.div`
@@ -924,6 +963,11 @@ const Button = styled.button`
     color: #696969;
     cursor: not-allowed;
   }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    margin-top: 15px;
+  }
 `;
 
 const Separator = styled.hr`
@@ -934,6 +978,10 @@ const Separator = styled.hr`
 const SubmitRow = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const ErrorLabel = styled.span`
@@ -942,7 +990,9 @@ const ErrorLabel = styled.span`
 `;
 
 RegistryPage.propTypes = {
-  history: PropTypes.shape({}),
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
 };
 
 export default withRouter(RegistryPage);
