@@ -32,8 +32,8 @@ const registrySuccessPage = () => {
 };
 
 const RegistrySuccess = styled.div`
-  height: 79vh;
-  margin: 20px;
+  min-height: 79vh;
+  margin: 80px 20px 20px;
   display: flex;
   align-items: center;
 `;
@@ -65,6 +65,14 @@ const Container = styled.div`
     margin: 50px 0;
     font-size: 22px;
     color: #0072ff;
+  }
+
+  @media (max-width: 600px) {
+    padding: 50px 15px;
+
+    & h3 {
+      word-break: break-word;
+    }
   }
 `;
 

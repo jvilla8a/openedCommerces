@@ -63,7 +63,17 @@ const RegistryPage = (props) => {
     fetch(DATA_BASE_URL)
       .then((res) => res.json())
       .then((data) => {
-        const selectData = Array.from(new Set(data.map((x) => x.departamento)));
+        data.push({
+          c_digo_dane_del_departamento: "11",
+          c_digo_dane_del_municipio: "11001",
+          departamento: "Bogotá D.C.",
+          municipio: "Bogotá D.C.",
+          region: "Región Centro Oriente",
+        });
+        const selectData = Array.from(
+          new Set(data.map((x) => x.departamento))
+        ).sort();
+
         setStates(
           selectData.map((state) => ({
             value: state,
@@ -79,7 +89,9 @@ const RegistryPage = (props) => {
       fetch(createCitiesURL(state))
         .then((res) => res.json())
         .then((data) => {
-          const selectData = Array.from(new Set(data.map((x) => x.municipio)));
+          const selectData = Array.from(
+            new Set(data.map((x) => x.municipio))
+          ).sort();
           setCities(
             selectData.map((City) => ({
               value: City,

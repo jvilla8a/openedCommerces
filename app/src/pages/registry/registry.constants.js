@@ -23,6 +23,10 @@ export const SALES_METHODS = [
     value: "Presencial",
     label: "Presencial",
   },
+  {
+    value: "Virtual",
+    label: "Virtual",
+  },
 ];
 
 export const FIREBASE_CONFIG = {
@@ -45,6 +49,7 @@ const AOptions = [
   { value: "Antiguedades", label: "Antigüedades" },
   { value: "Arte", label: "Arte" },
   { value: "Aseo", label: "Aseo" },
+  { value: "Asesoria", label: "Asesoría" },
   { value: "Automotriz", label: "Automotriz" },
 ];
 
@@ -103,6 +108,7 @@ const GOptions = [
 ];
 
 const HOptions = [
+  { value: "Heladeria", label: "Heladería" },
   { value: "Herramientas", label: "Herramientas" },
   { value: "Hogar", label: "Hogar" },
   { value: "Hospedaje", label: "Hospedaje" },
