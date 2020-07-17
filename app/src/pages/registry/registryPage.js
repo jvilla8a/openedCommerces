@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/database";
+import "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import ReCAPTCHA from "react-google-recaptcha";
