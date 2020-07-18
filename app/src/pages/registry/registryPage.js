@@ -413,6 +413,7 @@ const RegistryPage = (props) => {
             <Select
               options={states}
               name="states"
+              placeholder="Opciones..."
               onChange={(values) => {
                 setCities([]);
                 setDepartment(values.value);
@@ -424,6 +425,7 @@ const RegistryPage = (props) => {
             <Select
               options={cities}
               name="cities"
+              placeholder="Opciones..."
               onChange={(values) => {
                 setCity(values.value);
               }}
@@ -436,6 +438,7 @@ const RegistryPage = (props) => {
             isMulti
             name="SalesMethod"
             options={SALES_METHODS}
+            placeholder="Opciones..."
             className="basic-multi-select"
             classNamePrefix="select"
             onChange={(values) => {
@@ -533,6 +536,7 @@ const RegistryPage = (props) => {
               defaultValue={commerceTypes}
               isMulti
               name="commerces"
+              placeholder="Opciones..."
               options={COMMERCES}
               className="basic-multi-select"
               classNamePrefix="select"
@@ -625,6 +629,7 @@ const RegistryPage = (props) => {
             isMulti
             options={PAYMENT_METHODS}
             name="paymentMethods"
+            placeholder="Opciones..."
             className="basic-multi-select"
             classNamePrefix="select"
             onChange={(values) => {
@@ -809,8 +814,8 @@ const Title = styled.h2`
 `;
 
 const ImageContainer = styled.div`
-  height: 276px;
-  display: flex;
+  max-height: 276px;
+  height: fit-content;
 
   @media (max-width: 600px) {
     max-height: 300px;
@@ -820,7 +825,7 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   max-width: 100%;
-  max-height: 100%;
+  max-height: inherit;
   margin: 0px auto;
   display: block;
   border: 0px;
