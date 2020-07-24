@@ -1,6 +1,6 @@
 import React from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
-const NotFound = () => <Redirect to="/registro" />;
+const NotFound = () => <h2>404 Not Found</h2>;
 
 export default withRouter(NotFound);
