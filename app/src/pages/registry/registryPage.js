@@ -189,6 +189,25 @@ const RegistryPage = (props) => {
         console.error("Error adding document: ", error);
         setLoaderOpen(false);
       });
+
+      fetch('https://us-central1-openedcommerces.cloudfunctions.net/correos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: data.email,
+          code: data.id
+        })
+        
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   const handleCaptchaUpdate = (value) => {
