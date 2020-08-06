@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import firebase from "firebase/app";
+import firebase, { database } from "firebase/app";
 import "firebase/firestore";
 import "firebase/database";
 import "firebase/storage";
@@ -16,12 +16,16 @@ const defaultFirestore = defaultProject.firestore();
 
 const HomePage = () => {
   const [data, setData] = useState([{}]);
+  const [last, setLast] = useState([{}]);
+  const [first, setFirst] = useState([{}]);
+  const [second, setSecond] = useState([{}]);
+  const [third, setThird] = useState([{}]);
   useEffect(() => {
     getData();
   },[]);
   useEffect(()=>{
-    console.log(data);
-  },[data])
+    console.log('first =>', first, 'second =>', second, 'third =>', third);
+  },[third])
   const getData = () => {
     let array=[];
     defaultFirestore.collection('shops').get()
@@ -31,7 +35,10 @@ const HomePage = () => {
           array.push(x)
       });
       setData(array);
-  });
+      setFirst(array.splice((array.length-1)-12, 12).splice(0, 4));
+      setSecond(array.splice((array.length-1)-12, 12).splice(4, 4));
+      setThird(array.splice((array.length-1)-12, 12).splice(8, 4));
+    });
   };
   
   return(
@@ -60,130 +67,44 @@ const HomePage = () => {
       >
         <CarouselIteration className="carousel-content">
           <Container>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
+            {first.map((data) =>
+              <Card>
+                <Img src={data.img}/>
+                <h1>{data.name}</h1>
+                <p>
+                  type:
+                </p>
+                <h4>{data.commerceTypes ? data.commerceTypes[0].label : ""}</h4>
+              </Card>
+            )}
           </Container>
         </CarouselIteration>
         <CarouselIteration>
         <Container>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
+        {second.map((data) =>
+              <Card>
+                <Img src={data.img}/>
+                <h1>{data.name}</h1>
+                <p>
+                  type:
+                </p>
+                <h4>{data.commerceTypes ? data.commerceTypes[0].label : ""}</h4>
+              </Card>
+            )}
           </Container>
         </CarouselIteration>
         <CarouselIteration>
         <Container>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-          </Container>
-        </CarouselIteration>
-        <CarouselIteration>
-        <Container>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
-            <Card>
-              <Img src={'https://lh3.googleusercontent.com/proxy/6f2xkJCMn7slBjTJAWYhkz7_vJRe8z9fmqLYQe6iPzRqXyZNxak0VE9s_NX9NgAgXXlGFrl0MHujatdQUwpRbJL-ceXM02bislxjgARTxtVzvqzuaxTZpDYPKsseDX42Mw'}/>
-              <h1>Home</h1>
-              <p>
-                ¿Dónde puedo conseguirlo? Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum,' 
-              </p>
-            </Card>
+        {third.map((data) =>
+              <Card>
+                <Img src={data.img}/>
+                <h1>{data.name}</h1>
+                <p>
+                  type:
+                </p>
+                <h4>{data.commerceTypes ? data.commerceTypes[0].label : ""}</h4>
+              </Card>
+            )}
           </Container>
         </CarouselIteration>
       </Carousel>
@@ -232,6 +153,7 @@ export const Card = styled.div`
 `;
 export const Img = styled.img`
   width: 100%;
+  height: 165px;
 `;
 export const Logo = styled.img`
   width: 50px;
