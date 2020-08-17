@@ -17,8 +17,8 @@ import {
   SALES_METHODS,
   RECAPTCHA_KEY,
   RECAPTCHA_KEY_DEV,
-  COMMERCES,
 } from "./registry.constants";
+import { COMMERCES } from "../../app.constants";
 import { createCitiesURL, getSuccessfulRegistration } from "./registry.utils";
 import Loader from "../../shared/Loader";
 

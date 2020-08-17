@@ -7,13 +7,11 @@ import {
   Nav,
   Menu,
   Option,
-  ContextMenu,
-  MenuC,
-  OptionC,
   Redes,
   Social,
+  Img,
 } from "./navBar.styles";
-import InputText from "../../shared/InputText";
+import CommercesMenu from "../../shared/CommercesMenu";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -22,14 +20,15 @@ const NavBar = () => {
     setOpen(!open);
   };
 
-  const onMouseEnterHandler = () => {
-    setOpen(true);
-  };
-
   return (
     <Bar>
       <Logo>
-        <Link to="/">Logo</Link>
+        <Link to="/">
+          <Img
+            src={`${window.location.origin}/assets/images/logo2.png`}
+            alt="EncuentraK Logo"
+          />
+        </Link>
       </Logo>
       <Nav>
         <Menu>
@@ -45,77 +44,21 @@ const NavBar = () => {
       <Redes>
         <Social>
           {/* <a href="https://www.facebook.com" target="_blank"> */}
-            <i class="fab fa-facebook-square"></i>
+          <i className="fab fa-facebook-square" />
           {/* </a> */}
         </Social>
         <Social>
           {/* <a href="https://www.facebook.com" target="_blank"> */}
-            <i href="" class="fab fa-instagram" ></i>
+          <i href="" className="fab fa-instagram" />
           {/* </a> */}
         </Social>
         <Social>
           {/* <a href="https://www.facebook.com" target="_blank"> */}
-            <i href="" class="fab fa-twitter-square"></i>
+          <i href="" className="fab fa-twitter-square" />
           {/* </a> */}
         </Social>
       </Redes>
-      {open && (
-        <ContextMenu
-          onMouseEnter={onMouseEnterHandler}
-          onMouseLeave={commercesClickHandler}
-        >
-          <MenuC>
-            <OptionC>
-              <Link to="/">Category 0</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/comercios">Category 1</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 2</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 3</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 4</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 5</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 6</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 7</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 8</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 9</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 10</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 11</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 12</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 13</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 14</Link>
-            </OptionC>
-            <OptionC>
-              <Link to="/registro">Category 15</Link>
-            </OptionC>
-          </MenuC>
-        </ContextMenu>
-      )}
+      {open && <CommercesMenu openHandler={commercesClickHandler} />}
     </Bar>
   );
 };

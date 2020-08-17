@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Loadable from "react-loadable";
 import PropTypes from "prop-types";
 
-import routes from "./config/lazyLoadRegistry";
+import routes from "./config/lazyLoad";
 
 const validate = (isAuthenticated, route) => {
   return (

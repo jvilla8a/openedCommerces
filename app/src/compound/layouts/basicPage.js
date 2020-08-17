@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import NavBar from "../navBar";
-import NavBarRegistry from "../navBarRegistry";
 import Footer from "../footer";
 
 const BasicPage = (props) => {
@@ -11,7 +10,7 @@ const BasicPage = (props) => {
 
   return (
     <Container>
-      <NavBarRegistry />
+      <NavBar />
       {children}
       <Footer />
     </Container>
@@ -24,6 +23,8 @@ BasicPage.propTypes = {
 
 const Container = styled.div`
   height: 100vh;
+  padding-top: 1px;
+  box-sizing: border-box;
 `;
 
 export default BasicPage;

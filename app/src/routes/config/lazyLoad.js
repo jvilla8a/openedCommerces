@@ -23,7 +23,7 @@ const routes = [
     lazy: true,
     path: true,
     authenticate: false,
-    route: "/comercios",
+    route: "/comercios/:category",
   },
   {
     name: "Registry",
