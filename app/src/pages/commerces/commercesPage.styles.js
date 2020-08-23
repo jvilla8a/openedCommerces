@@ -41,14 +41,8 @@ export const CardsHolder = styled.div`
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   justify-content: center;
-`;
-
-export const Card = styled.div`
-  width: 200px;
-  height: 250px;
-  background-color: #ffffff;
-  margin: 5px;
-  border-radius: 4px;
+  max-width: 1480px;
+  margin: auto;
 `;
 
 export const Title = styled.h3`
