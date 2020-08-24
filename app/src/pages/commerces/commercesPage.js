@@ -1,9 +1,28 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { ORANGE } from "../../shared/Styles/Styles.constants";
+import CurrentFilters from "../../shared/CurrentFilters";
+import Filters from "../../shared/Filters";
+import Card from "../../shared/CommerceCard";
+import {
+  Container,
+  Content,
+  FiltersList,
+  Title,
+  CardsHolder,
+} from "./commercesPage.styles";
+
+const filter1 = [
+  "Antioquia",
+  "Cundinamarca",
+  "Bolivar",
+  "Atlantico",
+  "Amazonas",
+];
+const filter2 = ["Medellín", "Bogotá", "Cartagena", "Barranquilla", "Leticia"];
+const filter3 = ["Papeleria", "Bar", "Heladeria", "Abogados"];
+const filter4 = ["Consultoria", "Restaurante"];
 
 const CommercesPage = (props) => {
   const {
@@ -12,24 +31,71 @@ const CommercesPage = (props) => {
     },
   } = props;
 
+  const [appliedFilters, setFilters] = useState([]);
+
+  const handleAddFilter = (newFilter) => {
+    const checkedFilters = [...appliedFilters];
+
+    checkedFilters.push(newFilter);
+    setFilters(checkedFilters);
+  };
+
+  const handleRemoveFilter = (removedFilter) => {
+    let checkedFilters = [...appliedFilters];
+    checkedFilters = checkedFilters.filter(
+      (filter) => filter !== removedFilter
+    );
+
+    setFilters(checkedFilters);
+  };
+
   return (
     <Container>
-      <Title>{category.replace("-", " ")}</Title>
       <Content>
         <FiltersList>
-          <CurrentFilters>
-            <Filter>Whatever</Filter>
-            <Filter>You</Filter>
-            <Filter>Looking</Filter>
-            <Filter>For</Filter>
-          </CurrentFilters>
-          <Filters />
-          <Filters />
-          <Filters />
-          <Filters />
-          <Filters />
+          <Title>{category.replace("-", " ")}</Title>
+          <CurrentFilters
+            filters={appliedFilters}
+            removeFilter={handleRemoveFilter}
+          />
+          <Filters
+            title="Departamentos"
+            list={filter1}
+            filters={appliedFilters}
+            addFilter={handleAddFilter}
+            removeFilter={handleRemoveFilter}
+          />
+          <Filters
+            title="Ciudades"
+            list={filter2}
+            filters={appliedFilters}
+            addFilter={handleAddFilter}
+            removeFilter={handleRemoveFilter}
+          />
+          <Filters
+            title="Categorias"
+            list={filter3}
+            filters={appliedFilters}
+            addFilter={handleAddFilter}
+            removeFilter={handleRemoveFilter}
+          />
+          <Filters
+            title="Especialidad"
+            list={filter4}
+            filters={appliedFilters}
+            addFilter={handleAddFilter}
+            removeFilter={handleRemoveFilter}
+          />
         </FiltersList>
         <CardsHolder>
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
           <Card />
           <Card />
           <Card />
@@ -42,63 +108,6 @@ const CommercesPage = (props) => {
     </Container>
   );
 };
-
-export const Container = styled.div`
-  box-sizing: border-box;
-  margin: 20px 0px;
-  padding: 0px 20px;
-  margin-top: 100px;
-  width: 100%;
-`;
-
-export const Content = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-`;
-
-export const FiltersList = styled.aside`
-  background-color: #2c313a;
-  width: 200px;
-  border-radius: 4px;
-  width: 30%;
-  -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
-  max-width: 350px;
-`;
-
-export const CardsHolder = styled.div`
-  width: 100%;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-export const Card = styled.div`
-  width: 200px;
-  height: 250px;
-  background-color: #ffffff;
-  margin: 5px;
-  border-radius: 4px;
-`;
-
-export const Title = styled.h3`
-  color: ${ORANGE};
-  font-size: 20px;
-`;
-
-export const CurrentFilters = styled.div``;
-
-export const Filters = styled.div``;
-
-export const Filter = styled.div``;
 
 CommercesPage.propTypes = {
   match: PropTypes.shape({
