@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 
 import CurrentFilters from "../../shared/CurrentFilters";
 import Filters from "../../shared/Filters";
+import Card from "../../shared/CommerceCard";
 import {
   Container,
   Content,
   FiltersList,
   Title,
   CardsHolder,
-  Card,
 } from "./commercesPage.styles";
 
 const filter1 = [

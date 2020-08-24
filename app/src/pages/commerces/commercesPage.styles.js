@@ -5,7 +5,6 @@ import { ORANGE } from "../../shared/Styles/Styles.constants";
 export const Container = styled.div`
   box-sizing: border-box;
   margin: 20px 0px;
-  padding: 0px 20px;
   margin-top: 100px;
   width: 100%;
 `;
@@ -28,6 +27,7 @@ export const FiltersList = styled.aside`
   top: 101px;
   height: fit-content;
   max-height: calc(100% - 200px);
+  padding-left: 20px;
 `;
 
 export const CardsHolder = styled.div`
@@ -41,14 +41,8 @@ export const CardsHolder = styled.div`
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   justify-content: center;
-`;
-
-export const Card = styled.div`
-  width: 200px;
-  height: 250px;
-  background-color: #ffffff;
-  margin: 5px;
-  border-radius: 4px;
+  max-width: 1480px;
+  margin: auto;
 `;
 
 export const Title = styled.h3`
