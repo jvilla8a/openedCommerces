@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
+import Button from "../Button";
 import {
   Card,
   Avatar,
@@ -9,29 +11,48 @@ import {
   Body,
   Subtitle,
   Action,
-  Button,
   TagsContainer,
   Tag,
 } from "./CommerceCard.styles";
 
-const CommerceCard = () => (
-  <Card>
-    <Header>
-      <Banner src="http://placehold.jp/006699/cccc00/400x200.png" />
-      <Avatar src="http://placehold.jp/150x150.png" />
-    </Header>
-    <Body>
-      <Title>Nombre del Negocio</Title>
-      <Subtitle>Categoría</Subtitle>
-      <TagsContainer>
-        <Tag>Domicilio</Tag>
-        <Tag>Transferencia</Tag>
-      </TagsContainer>
-    </Body>
-    <Action>
-      <Button>Ver Información</Button>
-    </Action>
-  </Card>
-);
+const CommerceCard = (props) => {
+  const { banner, avatar, title, category, tags } = props;
+  return (
+    <Card>
+      <Header>
+        <Banner src={banner} />
+        <Avatar src={avatar} />
+      </Header>
+      <Body>
+        <Title>{title}</Title>
+        <Subtitle>{category}</Subtitle>
+        <TagsContainer>
+          {tags.map((tag) => (
+            <Tag>{tag}</Tag>
+          ))}
+        </TagsContainer>
+      </Body>
+      <Action>
+        <Button label="Ver Información" variant="primary" />
+      </Action>
+    </Card>
+  );
+};
+
+CommerceCard.defaultProps = {
+  banner: "http://placehold.jp/006699/cccc00/400x200.png",
+  avatar: "http://placehold.jp/150x150.png",
+  title: "Nombre del Negocio",
+  category: "Categoría",
+  tags: ["Domicilio", "Transferencia"],
+};
+
+CommerceCard.propTypes = {
+  banner: PropTypes.string,
+  avatar: PropTypes.string,
+  title: PropTypes.string,
+  category: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default CommerceCard;

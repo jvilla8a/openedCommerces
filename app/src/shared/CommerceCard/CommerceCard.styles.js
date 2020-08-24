@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { BLUE } from "../Styles/Styles.constants";
-
 export const Card = styled.div`
   width: 30%;
   max-width: 350px;
@@ -48,17 +46,6 @@ export const Banner = styled.img`
 export const Action = styled.div`
   text-align: center;
   margin-bottom: 20px;
-`;
-
-export const Button = styled.a`
-  font-size: 13px;
-  background: ${BLUE};
-  padding: 6px 15px;
-  border-radius: 5px;
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-block;
-  color: #ffffff;
 `;
 
 export const TagsContainer = styled.div`
