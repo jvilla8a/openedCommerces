@@ -9,6 +9,7 @@ import "firebase/storage";
 import {
   FIREBASE_CONFIG,
 } from "../registry/registry.constants";
+import CommerceCard from '../../shared/CommerceCard/CommerceCard';
 
 const defaultProject = firebase.initializeApp(FIREBASE_CONFIG);
 defaultProject.storage();
@@ -68,42 +69,21 @@ const HomePage = () => {
         <CarouselIteration className="carousel-content">
           <Container>
             {first.map((data) =>
-              <Card>
-                <Img src={data.img}/>
-                <h1>{data.name}</h1>
-                <p>
-                  type:
-                </p>
-                <h4>{data.commerceTypes ? data.commerceTypes[0].label : ""}</h4>
-              </Card>
+              <CommerceCard data={data}></CommerceCard>
             )}
           </Container>
         </CarouselIteration>
         <CarouselIteration>
         <Container>
         {second.map((data) =>
-              <Card>
-                <Img src={data.img}/>
-                <h1>{data.name}</h1>
-                <p>
-                  type:
-                </p>
-                <h4>{data.commerceTypes ? data.commerceTypes[0].label : ""}</h4>
-              </Card>
+              <CommerceCard data={data}></CommerceCard>
             )}
           </Container>
         </CarouselIteration>
         <CarouselIteration>
         <Container>
         {third.map((data) =>
-              <Card>
-                <Img src={data.img}/>
-                <h1>{data.name}</h1>
-                <p>
-                  type:
-                </p>
-                <h4>{data.commerceTypes ? data.commerceTypes[0].label : ""}</h4>
-              </Card>
+              <CommerceCard data={data}></CommerceCard>
             )}
           </Container>
         </CarouselIteration>
@@ -125,6 +105,7 @@ const Home = styled.div`
   & .carousel-content {
     height: auto;
   }
+
 `;
 
 const ContentCarousel = styled.div`
@@ -132,13 +113,11 @@ const ContentCarousel = styled.div`
 `;
 
 const CarouselIteration = styled.div`
-  height: 300px;
-  color: #ffffff;
-  margin-top: 55px;
+  height: 400px;
 `;
 const Container = styled.div`
-  padding: 0 20px;
-  display: flex;
+  padding: 0 auto;
+  display: inline-flex;
 
 `;
 export const Card = styled.div`
@@ -152,7 +131,6 @@ export const Card = styled.div`
   color: #000;
 `;
 export const Img = styled.img`
-  width: 100%;
   height: 165px;
 `;
 export const Logo = styled.img`

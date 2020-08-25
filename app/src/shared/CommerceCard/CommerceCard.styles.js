@@ -8,7 +8,7 @@ export const Card = styled.div`
   border-radius: 10px;
   overflow: hidden;
 `;
-export const Avatar = styled.img`
+export const Avatar = styled.div`
   height: 100px;
   width: 100px;
   position: absolute;
@@ -17,6 +17,11 @@ export const Avatar = styled.img`
   z-index: 1;
   border-radius: 999px;
   box-shadow: 0px 4px 10px 0px;
+  overflow: hidden;
+  img {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 export const Title = styled.h3`

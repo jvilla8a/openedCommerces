@@ -16,20 +16,19 @@ import {
 } from "./CommerceCard.styles";
 
 const CommerceCard = (props) => {
-  const { banner, avatar, title, category, tags } = props;
+  const { banner, avatar, title, category, tags, data } = props;
   return (
     <Card>
       <Header>
         <Banner src={banner} />
-        <Avatar src={avatar} />
+        <Avatar ><img src={data.img}></img></Avatar>
       </Header>
       <Body>
-        <Title>{title}</Title>
-        <Subtitle>{category}</Subtitle>
+        <Title>{data.name}</Title>
+        <Subtitle>{data.commerceTypes ? data.commerceTypes[0].label : ""}</Subtitle>
         <TagsContainer>
-          {tags.map((tag) => (
-            <Tag>{tag}</Tag>
-          ))}
+          {data.salesMethods ? <Tag>{data.salesMethods[0]}</Tag> : ""}
+          {data.paymentType ? <Tag>{data.paymentType[0]}</Tag> : ""}
         </TagsContainer>
       </Body>
       <Action>
