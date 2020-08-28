@@ -1,138 +1,146 @@
+export const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDKYG7Wt_IyYoMkfu1pnlc5XOBRH5E-foc",
+  storageBucket: "gs://openedcommerces.appspot.com",
+  authDomain: "openedcommerces.firebaseapp.com",
+  databaseURL: "https://openedcommerces.firebaseio.com",
+  projectId: "openedcommerces",
+};
+
 export const AOptions = [
-  { value: "Agro", label: "Agro" },
-  { value: "Alimentos", label: "Alimentos" },
-  { value: "Antiguedades", label: "Antigüedades" },
-  { value: "Arte", label: "Arte" },
-  { value: "Aseo", label: "Aseo" },
-  { value: "Asesoria", label: "Asesoría" },
-  { value: "Automotriz", label: "Automotriz" },
+  { value: "agro", label: "Agro" },
+  { value: "alimentos", label: "Alimentos" },
+  { value: "antiguedades", label: "Antigüedades" },
+  { value: "arte", label: "Arte" },
+  { value: "aseo", label: "Aseo" },
+  { value: "asesoria", label: "Asesoría" },
+  { value: "automotriz", label: "Automotriz" },
 ];
 
 export const BOptions = [
-  { value: "Barberia", label: "Barbería" },
-  { value: "Bares", label: "Bares" },
-  { value: "Bebes", label: "Bebés" },
-  { value: "Bebidas", label: "Bebidas" },
-  { value: "Belleza", label: "Belleza" },
-  { value: "Bienes-Raices", label: "Bienes Raíces" },
-  { value: "Bienestar", label: "Bienestar" },
-  { value: "Bisuteria", label: "Bisutería" },
-  { value: "Boleteria", label: "Boletería" },
+  { value: "barberia", label: "Barbería" },
+  { value: "bares", label: "Bares" },
+  { value: "bebes", label: "Bebés" },
+  { value: "bebidas", label: "Bebidas" },
+  { value: "belleza", label: "Belleza" },
+  { value: "bienes-raices", label: "Bienes Raíces" },
+  { value: "bienestar", label: "Bienestar" },
+  { value: "bisuteria", label: "Bisutería" },
+  { value: "boleteria", label: "Boletería" },
 ];
 
 export const COptions = [
-  { value: "Casino", label: "Casino" },
-  { value: "Cafeteria", label: "Cafetería" },
-  { value: "Cafes", label: "Cafés" },
-  { value: "Calzado", label: "Calzado" },
-  { value: "Cocina", label: "Cocina" },
-  { value: "Cigarreria", label: "Cigarrería" },
-  { value: "Comida", label: "Comida" },
-  { value: "Construccion", label: "Construcción" },
-  { value: "Contaduria", label: "Contaduría" },
+  { value: "casino", label: "Casino" },
+  { value: "cafeteria", label: "Cafetería" },
+  { value: "cafes", label: "Cafés" },
+  { value: "calzado", label: "Calzado" },
+  { value: "cocina", label: "Cocina" },
+  { value: "cigarreria", label: "Cigarrería" },
+  { value: "comida", label: "Comida" },
+  { value: "construccion", label: "Construcción" },
+  { value: "contaduria", label: "Contaduría" },
 ];
 
 export const DOptions = [
-  { value: "Danza", label: "Danza" },
-  { value: "Deportes", label: "Deportes" },
-  { value: "Detalles", label: "Detalles" },
-  { value: "Discotecas", label: "Discotecas" },
-  { value: "Drogueria", label: "Droguería" },
+  { value: "danza", label: "Danza" },
+  { value: "deportes", label: "Deportes" },
+  { value: "detalles", label: "Detalles" },
+  { value: "discotecas", label: "Discotecas" },
+  { value: "drogueria", label: "Droguería" },
 ];
 
 export const EOptions = [
-  { value: "Educacion", label: "Educación" },
-  { value: "Electrodomesticos", label: "Electrodomésticos" },
-  { value: "Electronicos", label: "Electrónicos" },
-  { value: "Entrenamiento", label: "Entrenamiento" },
-  { value: "Entretenimiento", label: "Entretenimiento" },
-  { value: "Estacion-de-servicio", label: "Estación de servicio" },
-  { value: "Estetica", label: "Estética" },
+  { value: "educacion", label: "Educación" },
+  { value: "electrodomesticos", label: "Electrodomésticos" },
+  { value: "electronicos", label: "Electrónicos" },
+  { value: "entrenamiento", label: "Entrenamiento" },
+  { value: "entretenimiento", label: "Entretenimiento" },
+  { value: "estacion-de-servicio", label: "Estación de servicio" },
+  { value: "estetica", label: "Estética" },
 ];
 
 export const FOptions = [
-  { value: "Farmacia", label: "Farmacia" },
-  { value: "Ferreterias", label: "Ferretería" },
-  { value: "Fiestas", label: "Fiestas" },
-  { value: "Flores", label: "Flores" },
+  { value: "farmacia", label: "Farmacia" },
+  { value: "ferreterias", label: "Ferretería" },
+  { value: "fiestas", label: "Fiestas" },
+  { value: "flores", label: "Flores" },
 ];
 
 export const GOptions = [
-  { value: "Gaming", label: "Gaming" },
-  { value: "Gas", label: "Gas" },
+  { value: "gaming", label: "Gaming" },
+  { value: "gas", label: "Gas" },
 ];
 
 export const HOptions = [
-  { value: "Heladeria", label: "Heladería" },
-  { value: "Herramientas", label: "Herramientas" },
-  { value: "Hogar", label: "Hogar" },
-  { value: "Hospedaje", label: "Hospedaje" },
+  { value: "heladeria", label: "Heladería" },
+  { value: "herramientas", label: "Herramientas" },
+  { value: "hogar", label: "Hogar" },
+  { value: "hospedaje", label: "Hospedaje" },
 ];
 
 export const IOptions = [
-  { value: "Impresiones", label: "Impresiones" },
-  { value: "Instrumentos-musicales", label: "Instrumentos musicales" },
+  { value: "impresiones", label: "Impresiones" },
+  { value: "instrumentos-musicales", label: "Instrumentos musicales" },
 ];
 
 export const JOptions = [
-  { value: "Juegos", label: "Juegos" },
-  { value: "Juguetes", label: "Juguetes" },
-  { value: "Joyas", label: "Joyas" },
+  { value: "juegos", label: "Juegos" },
+  { value: "juguetes", label: "Juguetes" },
+  { value: "joyas", label: "Joyas" },
 ];
 
 export const LOptions = [
-  { value: "Lavanderia", label: "Lavandería" },
-  { value: "Licores", label: "Licores" },
-  { value: "Libros", label: "Libros" },
+  { value: "lavanderia", label: "Lavandería" },
+  { value: "licores", label: "Licores" },
+  { value: "libros", label: "Libros" },
 ];
 
 export const MOptions = [
-  { value: "Madera", label: "Madera" },
-  { value: "Mascotas", label: "Mascotas" },
-  { value: "Miscelanea", label: "Miscelánea" },
-  { value: "Moda", label: "Moda" },
-  { value: "Motos", label: "Motos" },
-  { value: "Mudanzas", label: "Mudanzas" },
-  { value: "Muebles", label: "Muebles" },
-  { value: "Musica", label: "Música" },
+  { value: "madera", label: "Madera" },
+  { value: "mascotas", label: "Mascotas" },
+  { value: "miscelanea", label: "Miscelánea" },
+  { value: "moda", label: "Moda" },
+  { value: "motos", label: "Motos" },
+  { value: "mudanzas", label: "Mudanzas" },
+  { value: "muebles", label: "Muebles" },
+  { value: "musica", label: "Música" },
 ];
 
-export const OOptions = [{ value: "Oficina", label: "Oficina" }];
+export const OOptions = [{ value: "oficina", label: "Oficina" }];
 
 export const POptions = [
-  { value: "Peleteria", label: "Peletería" },
-  { value: "Peluqueria", label: "Peluquería" },
-  { value: "Panaderia", label: "Panadería" },
-  { value: "Papeleria", label: "Papelería" },
-  { value: "Pasteleria", label: "Pastelería" },
-  { value: "Publicidad", label: "Publicidad" },
+  { value: "peleteria", label: "Peletería" },
+  { value: "peluqueria", label: "Peluquería" },
+  { value: "panaderia", label: "Panadería" },
+  { value: "papeleria", label: "Papelería" },
+  { value: "pasteleria", label: "Pastelería" },
+  { value: "publicidad", label: "Publicidad" },
 ];
 
 export const QOptions = [{ value: "Quimicos", label: "Químicos" }];
 
 export const ROptions = [
-  { value: "Regalos", label: "Regalos" },
-  { value: "Relojes", label: "Relojes" },
-  { value: "Reparaciones", label: "Reparaciones" },
-  { value: "Restaurantes", label: "Restaurantes" },
-  { value: "Ropa", label: "Ropa" },
+  { value: "regalos", label: "Regalos" },
+  { value: "relojes", label: "Relojes" },
+  { value: "reparaciones", label: "Reparaciones" },
+  { value: "restaurantes", label: "Restaurantes" },
+  { value: "ropa", label: "Ropa" },
 ];
 
 export const SOptions = [
-  { value: "Sexshop", label: "Sexshop" },
-  { value: "Salud", label: "Salud" },
-  { value: "Seguridad", label: "Seguridad" },
+  { value: "sexshop", label: "Sexshop" },
+  { value: "salud", label: "Salud" },
+  { value: "seguridad", label: "Seguridad" },
 ];
 
 export const TOptions = [
-  { value: "Tatuajes", label: "Tatuajes" },
-  { value: "Tecnologia", label: "Tecnología" },
-  { value: "Turismo", label: "Turismo" },
+  { value: "tatuajes", label: "Tatuajes" },
+  { value: "tecnologia", label: "Tecnología" },
+  { value: "turismo", label: "Turismo" },
 ];
 
-export const VOptions = [{ value: "Video-Juegos", label: "Video Juegos" }];
+export const VOptions = [{ value: "video-juegos", label: "Video Juegos" }];
 
-export const ZOptions = [{ value: "Zapateria", label: "Zapatería" }];
+export const ZOptions = [{ value: "zapateria", label: "Zapatería" }];
 
 export const COMMERCES = [
   { label: "A", options: AOptions },
