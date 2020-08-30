@@ -14,19 +14,9 @@ import {
   CardsHolder,
 } from "./commercesPage.styles";
 import firebase from "../../shared/Firebase";
+import { FILTERS } from "./commercesPage.constants";
 
 const DB = firebase.firestore();
-
-const filter1 = [
-  "Antioquia",
-  "Cundinamarca",
-  "Bolivar",
-  "Atlantico",
-  "Amazonas",
-];
-const filter2 = ["Medellín", "Bogotá", "Cartagena", "Barranquilla", "Leticia"];
-const filter3 = ["Papeleria", "Bar", "Heladeria", "Abogados"];
-const filter4 = ["Consultoria", "Restaurante"];
 
 const CommercesPage = (props) => {
   const {
@@ -38,6 +28,10 @@ const CommercesPage = (props) => {
   const [loaderOpen, setLoaderOpen] = useState(false);
   const [appliedFilters, setFilters] = useState([]);
   const [commerces, setCommerces] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [payments, setPayments] = useState([]);
+  const [methods, setMethods] = useState([]);
 
   const handleAddFilter = (newFilter) => {
     const checkedFilters = [...appliedFilters];
@@ -55,6 +49,34 @@ const CommercesPage = (props) => {
     setFilters(checkedFilters);
   };
 
+  const selectFilter = (filter) => {
+    if (filter === "Departamentos") return states;
+    if (filter === "Ciudades") return cities;
+    if (filter === "Tipos de Pago") return payments;
+    if (filter === "Tipos de Venta") return methods;
+  };
+
+  const getFilters = (data) => {
+    setStates([...new Set(data.map((item) => item.department).sort())]);
+    setCities([...new Set(data.map((item) => item.city).sort())]);
+    setPayments([
+      ...new Set(
+        data
+          .map((item) => item.paymentType)
+          .sort()
+          .flat(2)
+      ),
+    ]);
+    setMethods([
+      ...new Set(
+        data
+          .map((item) => item.salesMethods)
+          .sort()
+          .flat(2)
+      ),
+    ]);
+  };
+
   const getCommerces = async () => {
     const query = await DB.collection("shops")
       .where("commerceTypes", "array-contains", `${category}`)
@@ -63,6 +85,8 @@ const CommercesPage = (props) => {
 
     setCommerces(data);
     setLoaderOpen(false);
+
+    if (data.length > 1) getFilters(data);
   };
 
   useEffect(() => {
@@ -84,34 +108,15 @@ const CommercesPage = (props) => {
             filters={appliedFilters}
             removeFilter={handleRemoveFilter}
           />
-          <Filters
-            title="Departamentos"
-            list={filter1}
-            filters={appliedFilters}
-            addFilter={handleAddFilter}
-            removeFilter={handleRemoveFilter}
-          />
-          <Filters
-            title="Ciudades"
-            list={filter2}
-            filters={appliedFilters}
-            addFilter={handleAddFilter}
-            removeFilter={handleRemoveFilter}
-          />
-          <Filters
-            title="Categorias"
-            list={filter3}
-            filters={appliedFilters}
-            addFilter={handleAddFilter}
-            removeFilter={handleRemoveFilter}
-          />
-          <Filters
-            title="Especialidad"
-            list={filter4}
-            filters={appliedFilters}
-            addFilter={handleAddFilter}
-            removeFilter={handleRemoveFilter}
-          />
+          {FILTERS.map((filter) => (
+            <Filters
+              title={filter.title}
+              list={selectFilter(filter.title)}
+              filters={appliedFilters}
+              addFilter={handleAddFilter}
+              removeFilter={handleRemoveFilter}
+            />
+          ))}
         </FiltersList>
         <CardsHolder>
           {commerces.map((commerce) => {
