@@ -58,7 +58,7 @@ const CommercesPage = (props) => {
           case "Ciudades":
             newData = [
               ...newData,
-              ...commerces.filter((item) => item.department === filter.value),
+              ...commerces.filter((item) => item.city === filter.value),
             ];
             break;
           case "Tipos de Pago":
