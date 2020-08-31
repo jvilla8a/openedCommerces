@@ -7,13 +7,17 @@ const Filters = (props) => {
   const { list, title, addFilter, removeFilter, filters } = props;
 
   const isChecked = (item) => {
-    if (filters.includes(item)) return true;
-    return false;
+    let checked = false;
+    filters.forEach((element) => {
+      if (element.value === item) checked = true;
+    });
+
+    return checked;
   };
 
   const actionsFilter = (filter) => {
     if (isChecked(filter)) removeFilter(filter);
-    else addFilter(filter);
+    else addFilter(filter, title);
   };
 
   return (

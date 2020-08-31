@@ -16,8 +16,8 @@ const CurrentFilters = (props) => {
     <Container>
       {innerFilters.length > 0 && <Title>Filtros Activos</Title>}
       {innerFilters.map((item) => (
-        <Tag onClick={() => removeFilter(item)} key={`F${item}`}>
-          {item}
+        <Tag onClick={() => removeFilter(item.value)} key={`F${item.value}`}>
+          {item.value}
           <Icon className="fas fa-times" />
         </Tag>
       ))}

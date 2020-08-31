@@ -28,25 +28,83 @@ const CommercesPage = (props) => {
   const [loaderOpen, setLoaderOpen] = useState(false);
   const [appliedFilters, setFilters] = useState([]);
   const [commerces, setCommerces] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [payments, setPayments] = useState([]);
   const [methods, setMethods] = useState([]);
 
-  const handleAddFilter = (newFilter) => {
+  const applyFilter = (newFilters) => {
+    let newData = [];
+    if (newFilters.length < 1) {
+      setFilteredData(commerces);
+      return false;
+    }
+
+    newFilters
+      .sort((a, b) => {
+        if (a.filter > b.filter) return 1;
+        if (a.filter < b.filter) return -1;
+        return 0;
+      })
+      .forEach((filter) => {
+        switch (filter.filter) {
+          case "Departamentos":
+            newData = [
+              ...newData,
+              ...commerces.filter((item) => item.department === filter.value),
+            ];
+            break;
+          case "Ciudades":
+            newData = [
+              ...newData,
+              ...commerces.filter((item) => item.department === filter.value),
+            ];
+            break;
+          case "Tipos de Pago":
+            if (newData.length > 0)
+              newData = newData.filter((item) =>
+                item.paymentType.includes(filter.value)
+              );
+            else
+              newData = commerces.filter((item) =>
+                item.paymentType.includes(filter.value)
+              );
+            break;
+          case "Tipos de Venta":
+            if (newData.length > 0)
+              newData = newData.filter((item) =>
+                item.salesMethods.includes(filter.value)
+              );
+            else
+              newData = commerces.filter((item) =>
+                item.salesMethods.includes(filter.value)
+              );
+            break;
+          default:
+            break;
+        }
+      });
+
+    setFilteredData(newData);
+  };
+
+  const handleAddFilter = (newFilter, title) => {
     const checkedFilters = [...appliedFilters];
 
-    checkedFilters.push(newFilter);
+    checkedFilters.push({ filter: title, value: newFilter });
     setFilters(checkedFilters);
+    applyFilter(checkedFilters);
   };
 
   const handleRemoveFilter = (removedFilter) => {
     let checkedFilters = [...appliedFilters];
     checkedFilters = checkedFilters.filter(
-      (filter) => filter !== removedFilter
+      (filter) => filter.value !== removedFilter
     );
 
     setFilters(checkedFilters);
+    applyFilter(checkedFilters);
   };
 
   const selectFilter = (filter) => {
@@ -82,8 +140,9 @@ const CommercesPage = (props) => {
       .where("commerceTypes", "array-contains", `${category}`)
       .get();
     const data = query.docs.map((doc) => doc.data());
-
+    console.log(`DATA => `, data);
     setCommerces(data);
+    setFilteredData(data);
     setLoaderOpen(false);
 
     if (data.length > 1) getFilters(data);
@@ -119,7 +178,7 @@ const CommercesPage = (props) => {
           ))}
         </FiltersList>
         <CardsHolder>
-          {commerces.map((commerce) => {
+          {filteredData.map((commerce) => {
             const {
               img,
               name,
