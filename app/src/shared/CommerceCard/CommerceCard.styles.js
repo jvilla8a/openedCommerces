@@ -16,6 +16,7 @@ export const Avatar = styled.img`
   left: calc(50% - 50px);
   border-radius: 999px;
   box-shadow: 0px 4px 10px 0px;
+  background-color: #282c34;
 `;
 
 export const Title = styled.h3`

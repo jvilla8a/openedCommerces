@@ -4,8 +4,7 @@ import { ORANGE } from "../../shared/Styles/Styles.constants";
 
 export const Container = styled.div`
   box-sizing: border-box;
-  margin: 20px 0px;
-  margin-top: 100px;
+  margin: 0px;
   width: 100%;
 `;
 
@@ -16,18 +15,14 @@ export const Content = styled.div`
 `;
 
 export const FiltersList = styled.aside`
-  width: 30%;
-  border-radius: 4px;
-  -webkit-box-shadow: 20px 0px 5px -15px rgba(0, 0, 0, 1);
-  -moz-box-shadow: 20px 0px 5px -15px rgba(0, 0, 0, 1);
-  box-shadow: 20px 0px 5px -15px rgba(0, 0, 0, 1);
+  width: 25%;
   max-width: 230px;
   min-width: 150px;
   position: sticky;
-  top: 101px;
+  top: 120px;
   height: fit-content;
   max-height: calc(100% - 200px);
-  padding-left: 20px;
+  padding: 10px 0 0 20px;
 `;
 
 export const CardsHolder = styled.div`
@@ -42,11 +37,32 @@ export const CardsHolder = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   max-width: 1480px;
-  margin: auto;
+  margin: 20px auto;
+  height: fit-content;
 `;
 
 export const Title = styled.h3`
   color: ${ORANGE};
   font-size: 22px;
-  margin-top: 0px;
+  margin: 0px;
+`;
+
+export const SubTitle = styled.span`
+  color: #505050;
+  font-size: 13px;
+`;
+
+export const Header = styled.div`
+  width: 100%;
+  padding: 10px 20px;
+  position: sticky;
+  top: 55px;
+  z-index: 1;
+  background-color: #282c34;
+  display: flex;
+`;
+
+export const CategoryInfo = styled.div`
+  margin-right: 20px;
+  min-width: 100px;
 `;

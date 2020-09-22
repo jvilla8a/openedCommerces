@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Container, Title, Filter } from "./Filters.styles";
+import { Container, Title, Filter, Comment } from "./Filters.styles";
 
 const Filters = (props) => {
   const { list, title, addFilter, removeFilter, filters } = props;
@@ -23,12 +23,16 @@ const Filters = (props) => {
   return (
     <Container>
       <Title>{title}</Title>
-      {list.map((filter) => (
-        <Filter onClick={() => actionsFilter(filter)}>
-          <input type="checkbox" checked={isChecked(filter)} />
-          <label>{filter}</label>
-        </Filter>
-      ))}
+      {list.length ? (
+        list.map((filter) => (
+          <Filter onClick={() => actionsFilter(filter)}>
+            <input type="checkbox" checked={isChecked(filter)} />
+            <label>{filter}</label>
+          </Filter>
+        ))
+      ) : (
+        <Comment>No hay filtros</Comment>
+      )}
     </Container>
   );
 };

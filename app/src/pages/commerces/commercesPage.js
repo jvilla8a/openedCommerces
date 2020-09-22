@@ -12,9 +12,13 @@ import {
   FiltersList,
   Title,
   CardsHolder,
+  SubTitle,
+  Header,
+  CategoryInfo,
 } from "./commercesPage.styles";
 import firebase from "../../shared/Firebase";
 import { FILTERS } from "./commercesPage.constants";
+import * as COMMERCES from "../../app.constants";
 
 const DB = firebase.firestore();
 
@@ -33,6 +37,7 @@ const CommercesPage = (props) => {
   const [cities, setCities] = useState([]);
   const [payments, setPayments] = useState([]);
   const [methods, setMethods] = useState([]);
+  const [type, setType] = useState({});
 
   const applyFilter = (newFilters) => {
     let newData = [];
@@ -140,33 +145,50 @@ const CommercesPage = (props) => {
       .where("commerceTypes", "array-contains", `${category}`)
       .get();
     const data = query.docs.map((doc) => doc.data());
-    console.log(`DATA => `, data);
+
     setCommerces(data);
     setFilteredData(data);
     setLoaderOpen(false);
+    getFilters(data);
+  };
 
-    if (data.length > 1) getFilters(data);
+  const getCategoryName = () => {
+    const commerce = COMMERCES[`${category[0].toUpperCase()}Options`].filter(
+      (item) => item.value === category
+    );
+
+    setType(...commerce);
   };
 
   useEffect(() => {
     setLoaderOpen(true);
     getCommerces();
+    getCategoryName();
   }, []);
 
   useEffect(() => {
     setLoaderOpen(true);
     getCommerces();
+    getCategoryName();
   }, [category]);
 
   return (
     <Container>
+      <Header>
+        <CategoryInfo>
+          <Title>{type.label}</Title>
+          <SubTitle>
+            {commerces.length}
+            {commerces.length === 1 ? " Comercio" : " Comercios"}
+          </SubTitle>
+        </CategoryInfo>
+        <CurrentFilters
+          filters={appliedFilters}
+          removeFilter={handleRemoveFilter}
+        />
+      </Header>
       <Content>
         <FiltersList>
-          <Title>{category.replace("-", " ")}</Title>
-          <CurrentFilters
-            filters={appliedFilters}
-            removeFilter={handleRemoveFilter}
-          />
           {FILTERS.map((filter) => (
             <Filters
               title={filter.title}

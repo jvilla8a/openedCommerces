@@ -1,16 +1,18 @@
 import styled from "styled-components";
 
 export const Bar = styled.div`
-  background-color: transparent;
+  background-color: #282c34;
   width: 100%;
-  height: 50px;
-  position: fixed;
-  padding: 10px;
+  height: 55px;
+  position: sticky;
+  top: 0px;
+  padding: 0 10px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1;
+  z-index: 2;
+  border-bottom: 5px solid #000;
 
   & * {
     display: inline;
@@ -27,7 +29,7 @@ export const Bar = styled.div`
 export const Nav = styled.nav``;
 
 export const Logo = styled.div`
-  width: 250px;
+  width: 220px;
 `;
 
 export const Menu = styled.ul`
@@ -49,6 +51,7 @@ export const Option = styled.li`
 `;
 
 export const Redes = styled.ul``;
+
 export const Social = styled.li`
   color: #ffffff;
   font-size: 24px;
@@ -65,5 +68,5 @@ export const Social = styled.li`
 export const Img = styled.img`
   width: 100%;
   position: relative;
-  top: 15px;
+  top: 3px;
 `;
