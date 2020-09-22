@@ -23,8 +23,13 @@ BasicPage.propTypes = {
 
 const Container = styled.div`
   height: 100vh;
-  padding-top: 1px;
+  display: inline-block;
   box-sizing: border-box;
+  width: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
 `;
 
 export default BasicPage;

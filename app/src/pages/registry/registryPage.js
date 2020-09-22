@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/database";
-import "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -11,7 +7,6 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import {
-  FIREBASE_CONFIG,
   DATA_BASE_URL,
   PAYMENT_METHODS,
   SALES_METHODS,
@@ -21,10 +16,9 @@ import {
 import { COMMERCES } from "../../app.constants";
 import { createCitiesURL, getSuccessfulRegistration } from "./registry.utils";
 import Loader from "../../shared/Loader";
+import firebase from "../../shared/Firebase";
 
-const defaultProject = firebase.initializeApp(FIREBASE_CONFIG);
-defaultProject.storage();
-const defaultFirestore = defaultProject.firestore();
+const Firestorage = firebase.firestore();
 
 const RegistryPage = (props) => {
   const [isLoaderOpen, setLoaderOpen] = useState(false);
@@ -178,8 +172,7 @@ const RegistryPage = (props) => {
       invitation,
     };
 
-    defaultFirestore
-      .collection("shops")
+    Firestorage.collection("shops")
       .add(data)
       .then(() => {
         history.push(getSuccessfulRegistration(id));

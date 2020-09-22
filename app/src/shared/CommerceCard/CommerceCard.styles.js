@@ -14,13 +14,14 @@ export const Avatar = styled.img`
   position: absolute;
   bottom: -30px;
   left: calc(50% - 50px);
-  z-index: 1;
   border-radius: 999px;
   box-shadow: 0px 4px 10px 0px;
+  background-color: #282c34;
 `;
 
 export const Title = styled.h3`
   margin: 0;
+  text-transform: capitalize;
 `;
 
 export const Header = styled.div`
@@ -37,6 +38,7 @@ export const Subtitle = styled.span`
   font-size: 14px;
   color: #cccccc;
   font-weight: 500;
+  text-transform: capitalize;
 `;
 
 export const Banner = styled.img`
@@ -60,4 +62,5 @@ export const Tag = styled.span`
   margin: 0 2px;
   background: #000;
   color: #fff;
+  text-transform: capitalize;
 `;

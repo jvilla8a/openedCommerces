@@ -42,9 +42,9 @@ const CommerceCard = (props) => {
 CommerceCard.defaultProps = {
   banner: "http://placehold.jp/006699/cccc00/400x200.png",
   avatar: "http://placehold.jp/150x150.png",
-  title: "Nombre del Negocio",
-  category: "Categoría",
-  tags: ["Domicilio", "Transferencia"],
+  title: "",
+  category: "",
+  tags: [],
 };
 
 CommerceCard.propTypes = {

@@ -30,3 +30,10 @@ export const Filter = styled.div`
 export const Icon = styled.i`
   margin: 5px;
 `;
+
+export const Comment = styled.span`
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  color: #505050;
+`;

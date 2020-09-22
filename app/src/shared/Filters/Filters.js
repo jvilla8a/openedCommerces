@@ -1,30 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Container, Title, Filter } from "./Filters.styles";
+import { Container, Title, Filter, Comment } from "./Filters.styles";
 
 const Filters = (props) => {
   const { list, title, addFilter, removeFilter, filters } = props;
 
   const isChecked = (item) => {
-    if (filters.includes(item)) return true;
-    return false;
+    let checked = false;
+    filters.forEach((element) => {
+      if (element.value === item) checked = true;
+    });
+
+    return checked;
   };
 
   const actionsFilter = (filter) => {
     if (isChecked(filter)) removeFilter(filter);
-    else addFilter(filter);
+    else addFilter(filter, title);
   };
 
   return (
     <Container>
       <Title>{title}</Title>
-      {list.map((filter) => (
-        <Filter onClick={() => actionsFilter(filter)}>
-          <input type="checkbox" checked={isChecked(filter)} />
-          <label>{filter}</label>
-        </Filter>
-      ))}
+      {list.length ? (
+        list.map((filter) => (
+          <Filter onClick={() => actionsFilter(filter)}>
+            <input type="checkbox" checked={isChecked(filter)} />
+            <label>{filter}</label>
+          </Filter>
+        ))
+      ) : (
+        <Comment>No hay filtros</Comment>
+      )}
     </Container>
   );
 };

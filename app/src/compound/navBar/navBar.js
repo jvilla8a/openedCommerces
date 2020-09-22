@@ -24,10 +24,7 @@ const NavBar = () => {
     <Bar>
       <Logo>
         <Link to="/">
-          <Img
-            src={`${window.location.origin}/assets/images/logo2.png`}
-            alt="EncuentraK Logo"
-          />
+          <Img src="/assets/images/logo3.png" alt="EncuentraK Logo" />
         </Link>
       </Logo>
       <Nav>
